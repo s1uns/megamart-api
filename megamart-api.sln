@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "megamart-api", "megamart-api\megamart-api.csproj", "{917AF7C3-5222-46B3-A0BD-71FF27BDDBCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "megamart-api", "megamart-api\megamart-api.csproj", "{917AF7C3-5222-46B3-A0BD-71FF27BDDBCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{94F12828-651D-43CC-B550-A4E022356BCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{B52829E8-43FF-42C9-B89A-1EB526105C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{9171C4DD-132D-4C78-8B43-91DBEF8410EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrustructure", "Infrustructure\Infrustructure.csproj", "{E085AB93-6168-45C0-8D2A-92D18B56E3C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{917AF7C3-5222-46B3-A0BD-71FF27BDDBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{917AF7C3-5222-46B3-A0BD-71FF27BDDBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{917AF7C3-5222-46B3-A0BD-71FF27BDDBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F12828-651D-43CC-B550-A4E022356BCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F12828-651D-43CC-B550-A4E022356BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F12828-651D-43CC-B550-A4E022356BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F12828-651D-43CC-B550-A4E022356BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B52829E8-43FF-42C9-B89A-1EB526105C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52829E8-43FF-42C9-B89A-1EB526105C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52829E8-43FF-42C9-B89A-1EB526105C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52829E8-43FF-42C9-B89A-1EB526105C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9171C4DD-132D-4C78-8B43-91DBEF8410EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9171C4DD-132D-4C78-8B43-91DBEF8410EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9171C4DD-132D-4C78-8B43-91DBEF8410EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9171C4DD-132D-4C78-8B43-91DBEF8410EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E085AB93-6168-45C0-8D2A-92D18B56E3C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E085AB93-6168-45C0-8D2A-92D18B56E3C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E085AB93-6168-45C0-8D2A-92D18B56E3C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E085AB93-6168-45C0-8D2A-92D18B56E3C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
