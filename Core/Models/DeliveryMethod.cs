@@ -8,9 +8,9 @@ namespace Core.Models
 {
     public class DeliveryMethod
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public string LogoUrl { get; set; }
+        public string? LogoUrl { get; set; }
 
         public int MinimalPrice { get; set; }
     }
