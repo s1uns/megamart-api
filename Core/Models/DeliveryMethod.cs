@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Models
 {
-    public class DeliveryMethod
+    public class DeliveryMethod : BaseEntity
     {
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         public string? LogoUrl { get; set; }
 
