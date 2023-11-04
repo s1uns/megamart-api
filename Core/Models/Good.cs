@@ -8,9 +8,11 @@ namespace Core.Models
 {
     public class Good : BaseEntity
     {
-        public Salesman Salesman { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = "No description";
+        public Seller Seller { get; set; }
+        public Guid SellerId { get; set; }
+        public string Name { get; set; } 
+        public string Description { get; set; }
+        public decimal Price { get; set; }
         public List<Category>? Categories { get; set; }
     }
 }
