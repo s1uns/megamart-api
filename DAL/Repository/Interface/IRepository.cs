@@ -9,16 +9,16 @@ namespace DAL.Repository.Interface
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<Result<List<T>>> GetAllAsync();
+        public Task<List<T>> GetAllAsync();
 
-        Task<Result<T>> GetByIdAsync(int id);
+        public Task<T> GetByIdAsync(Guid id);
 
-        Task<Result<T>> GetByPredicateAsync(Func<T, bool> predicate);
+        public Task<T> GetByPredicateAsync(Func<T, bool> predicate);
 
-        Task<Result<bool>> AddAsync(T entity);
+        public Task<T> AddAsync(T entity);
 
-        Task<Result<bool>> UpdateAsync(int id, T newEntity);
+        public Task<T> UpdateAsync(Guid id, T newEntity);
 
-        Task<Result<bool>> DeleteAsync(int id);
+        public Task DeleteAsync(Guid id);
     }
 }

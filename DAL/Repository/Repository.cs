@@ -1,12 +1,9 @@
 ﻿using Core.Models;
 using DAL.Repository.Interface;
+using Infrustructure.ErrorHandling.Repository.Exceptions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
@@ -27,103 +24,116 @@ namespace DAL.Repository
             _context.SaveChanges();
         }
 
-        public async Task<Result<List<T>>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             try
             {
                 if (_dbSet.Count() != 0)
                 {
                     var items = _dbSet.ToList();
-                    return new Result<List<T>>(isSuccessful: true, data: items);
+                    return items;
                 }
 
-                return new Result<List<T>>(isSuccessful: true, data: new List<T>());
+                return new List<T>();
             }
             catch (Exception ex)
             {
-                throw new Exception($"There was a problem during returning the list of entities: {ex.Message}");
+                throw new GetAllException($"There was a problem during returning the list of {nameof(T)} entities: {ex.Message}");
             }
         }
 
-        public async Task<Result<T>> GetByIdAsync(int id)
-        {
-            return await GetByPredicateAsync(x => x.Id.Equals(id));
-        }
-
-        public async Task<Result<T>> GetByPredicateAsync(Func<T, bool> predicate)
+        public async Task<T> GetByIdAsync(Guid id)
         {
             try
             {
-                var item = (await GetAllAsync()).Data.FirstOrDefault(predicate);
+                var item = await _dbSet.FindAsync(id);
 
-                if (item == null)
+                if (item is null)
                 {
-                    return new Result<T>(isSuccessful: false, message: "Item is not found.");
+                    throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
 
-                return new Result<T>(isSuccessful: true, data: item);
+                return item;
             }
             catch (Exception ex)
             {
-                return new Result<T>(isSuccessful: false, message: $"Failed to get item. Exception: {ex.Message}");
+                throw new GetByIdException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
-        public async Task<Result<bool>> AddAsync(T entity)
+        public async Task<T> GetByPredicateAsync(Func<T, bool> predicate)
+        {
+            try
+            {
+                var item = (await GetAllAsync()).FirstOrDefault(predicate);
+
+                if (item is null)
+                {
+                    throw new PredicateNotFoundException($"{nameof(T)} with the specified predicate not found.");
+                }
+
+                return item;
+            }
+            catch (Exception ex)
+            {
+                throw new GetByPredicateException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
+            }
+        }
+
+        public async Task<T> AddAsync(T entity)
         {
             try
             {
                 _dbSet.Add(entity);
                 await SaveChanges();
 
-                return new Result<bool>(isSuccessful: true);
+                return entity;
             }
             catch (Exception ex)
             {
-                return new Result<bool>(isSuccessful: false, message: $"Failed to add item. Exception: {ex.Message}");
+                throw new AddException($"Failed to add {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
-        public async Task<Result<bool>> UpdateAsync(int id, T newEntity)
+        public async Task<T> UpdateAsync(Guid id, T newEntity)
         {
             try
             {
 
-                if (id != -1)
-                {
-                    var baseEntity = (await GetByIdAsync(id)).Data;
-                    _dbSet.Entry(baseEntity).CurrentValues.SetValues(newEntity);
-                    await SaveChanges();
+                var baseEntity = await GetByIdAsync(id);
 
-                    return new Result<bool>(isSuccessful: true);
+                if (baseEntity is null)
+                {
+                    throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
-                return new Result<bool>(isSuccessful: false, message: "Object with the specified Id not found.");
+                _dbSet.Entry(baseEntity).CurrentValues.SetValues(newEntity);
+                    await SaveChanges(); 
+                return baseEntity;
             }
             catch (Exception ex)
             {
-                return new Result<bool>(isSuccessful: false, message: $"Failed to update item. Exception: {ex.Message}");
+                throw new UpdateException($"Failed to update {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
-        public async Task<Result<bool>> DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             try
             {
 
-                var entity = (await GetByIdAsync(id)).Data;
+                var item = await _dbSet.FindAsync(id);
 
-                if (id != -1)
+                if (item is null)
                 {
-                    _dbSet.Remove(entity);
-                    await SaveChanges();
-
-                    return new Result<bool>(isSuccessful: true);
+                    throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
-                return new Result<bool>(isSuccessful: false, message: "Object with the specified Id not found.");
+
+                _dbSet.Remove(item);
+                await SaveChanges();
             }
             catch (Exception ex)
             {
-                return new Result<bool>(isSuccessful: false, message: $"Failed to delete item. Exception: {ex.Message}");
+                throw new DeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
             }
         }
     }
