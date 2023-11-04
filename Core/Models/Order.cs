@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Core.Models
         public Guid DeliveryMethodId { get; set; }
         public decimal Total { get; set; }
         public DateTime CreatedAt { get; set; }
+        public OrderStatus OrderStatus { get; set; }
     }
 }

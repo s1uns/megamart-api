@@ -1,4 +1,5 @@
-﻿using Core.Models;
+﻿using Core.Enums;
+using Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -40,6 +41,10 @@ namespace DAL.Configurations
             modelBuilder
                 .Property(o => o.CreatedAt)
                 .HasDefaultValue(DateTime.UtcNow);
+
+            modelBuilder
+                .Property(o => o.OrderStatus)
+                .HasDefaultValue(OrderStatus.JustCreated);
         }
     }
 }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-    public class OrderStatus
+    public enum OrderStatus
     {
+        JustCreated,
+        Cancelled,
+        Accepted,
+        Progressing,
+        Completed
     }
 }
