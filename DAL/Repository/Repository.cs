@@ -19,7 +19,7 @@ namespace DAL.Repository
         }
 
 
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             _context.SaveChanges();
         }
@@ -85,7 +85,7 @@ namespace DAL.Repository
             try
             {
                 _dbSet.Add(entity);
-                await SaveChanges();
+                await SaveChangesAsync();
 
                 return entity;
             }
@@ -95,20 +95,18 @@ namespace DAL.Repository
             }
         }
 
-        public async Task<T> UpdateAsync(Guid id, T newEntity)
+        public async Task<T> UpdateAsync(T entity)
         {
             try
             {
-
-                var baseEntity = await GetByIdAsync(id);
-
-                if (baseEntity is null)
+                if (!_dbSet.Any(e => e.Id == entity.Id))
                 {
                     throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
-                _dbSet.Entry(baseEntity).CurrentValues.SetValues(newEntity);
-                    await SaveChanges(); 
-                return baseEntity;
+
+                _dbSet.Update(entity);
+                await SaveChangesAsync();
+                return entity;
             }
             catch (Exception ex)
             {
@@ -129,7 +127,7 @@ namespace DAL.Repository
                 }
 
                 _dbSet.Remove(item);
-                await SaveChanges();
+                await SaveChangesAsync();
             }
             catch (Exception ex)
             {
