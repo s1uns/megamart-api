@@ -38,7 +38,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new GetAllException($"There was a problem during returning the list of {nameof(T)} entities: {ex.Message}");
+                throw new RepositoryGetAllException($"There was a problem during returning the list of {nameof(T)} entities: {ex.Message}");
             }
         }
 
@@ -50,14 +50,14 @@ namespace DAL.Repository
 
                 if (item is null)
                 {
-                    throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
+                    throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
 
                 return item;
             }
             catch (Exception ex)
             {
-                throw new GetByIdException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryGetByIdException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
@@ -69,14 +69,14 @@ namespace DAL.Repository
 
                 if (item is null)
                 {
-                    throw new PredicateNotFoundException($"{nameof(T)} with the specified predicate not found.");
+                    throw new RepositoryPredicateNotFoundException($"{nameof(T)} with the specified predicate not found.");
                 }
 
                 return item;
             }
             catch (Exception ex)
             {
-                throw new GetByPredicateException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryGetByPredicateException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
@@ -91,7 +91,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new AddException($"Failed to add {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryAddException($"Failed to add {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
@@ -101,7 +101,7 @@ namespace DAL.Repository
             {
                 if (!_dbSet.Any(e => e.Id == entity.Id))
                 {
-                    throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
+                    throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
 
                 _dbSet.Update(entity);
@@ -110,7 +110,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new UpdateException($"Failed to update {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryUpdateException($"Failed to update {nameof(T)}. Exception: {ex.Message}");
             }
         }
 
@@ -123,7 +123,7 @@ namespace DAL.Repository
 
                 if (item is null)
                 {
-                    throw new IdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
+                    throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
 
                 _dbSet.Remove(item);
@@ -131,7 +131,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryDeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
             }
         }
     }

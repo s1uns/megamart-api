@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ErrorHandling\Services\Category\" />
+    <Folder Include="ErrorHandling\Services\Customer\" />
+    <Folder Include="ErrorHandling\Services\DeliveryAddress\" />
+  </ItemGroup>
+
 </Project>
