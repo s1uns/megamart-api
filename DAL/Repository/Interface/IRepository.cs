@@ -17,7 +17,7 @@ namespace DAL.Repository.Interface
 
         public Task<T> AddAsync(T entity);
 
-        public Task<T> UpdateAsync(Guid id, T newEntity);
+        public Task<T> UpdateAsync(T entity);
 
         public Task DeleteAsync(Guid id);
     }
