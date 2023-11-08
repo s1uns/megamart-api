@@ -2,16 +2,27 @@
 using Core.Models;
 using DAL.Repository.Interface;
 using Infrustructure.ErrorHandling.Services.GenericException;
+using Microsoft.Extensions.Logging;
 
 namespace BLL.Services.GenericService
 {
     public class GenericService<T> : IGenericService<T> where T : BaseEntity
     {
         private readonly IRepository<T> _repository;
+        private readonly ILogger<GenericService<T>> _logger;
+
         public GenericService(IRepository<T> repository)
         {
             _repository = repository;
         }
+
+        public GenericService(IRepository<T> repository, ILogger<GenericService<T>> logger)
+        {
+            _repository = repository;
+            _logger = logger;
+        }
+
+
         public async Task<T> AddAsync(T entity)
         {
             try
@@ -21,6 +32,7 @@ namespace BLL.Services.GenericService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"BLL.AddAsync {nameof(T)} ERROR: {ex.Message}");
                 throw new ServiceAddException(ex.Message);
             }
         }
@@ -33,6 +45,7 @@ namespace BLL.Services.GenericService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"BLL.DeleteAsync {nameof(T)} ERROR: {ex.Message}");
                 throw new ServiceDeleteException(ex.Message);
             }
         }
@@ -46,6 +59,7 @@ namespace BLL.Services.GenericService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"BLL.GetAllAsync {nameof(T)} ERROR: {ex.Message}");
                 throw new ServiceGetAllException(ex.Message);
             }
         }
@@ -59,6 +73,7 @@ namespace BLL.Services.GenericService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"BLL.GetByIdAsync {nameof(T)} ERROR: {ex.Message}");
                 throw new ServiceGetByIdException(ex.Message);
             }
         }
@@ -85,6 +100,7 @@ namespace BLL.Services.GenericService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"BLL.UpdateAsync {nameof(T)} ERROR: {ex.Message}");
                 throw new ServiceUpdateException(ex.Message);
             }
         }
