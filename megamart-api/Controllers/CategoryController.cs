@@ -94,7 +94,7 @@ namespace megamart_api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"ENDPOINT.Category.UpdateCategory ERROR: {ex.Message}");
+                _logger.LogError($"ENDPOINT.Category.DeleteCategory ERROR: {ex.Message}");
                 return BadRequest(ex);
             }
         }
