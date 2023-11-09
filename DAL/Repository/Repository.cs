@@ -3,6 +3,7 @@ using DAL.Repository.Interface;
 using Infrustructure.ErrorHandling.Repository.Exceptions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace DAL.Repository
@@ -11,11 +12,13 @@ namespace DAL.Repository
     {
         private readonly MegamartContext _context;
         private readonly DbSet<T> _dbSet;
+        private readonly ILogger<Repository<T>> _logger;
 
-        public Repository(MegamartContext context)
+        public Repository(MegamartContext context, ILogger<Repository<T>> logger)
         {
             _context = context;
             _dbSet = context.Set<T>();
+            _logger = logger;
         }
 
 
@@ -33,11 +36,11 @@ namespace DAL.Repository
                     var items = _dbSet.ToList();
                     return items;
                 }
-
                 return new List<T>();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"DAL.GetAllAsync ERROR: {ex.Message}");
                 throw new RepositoryGetAllException($"There was a problem during returning the list of {nameof(T)} entities: {ex.Message}");
             }
         }
@@ -49,14 +52,14 @@ namespace DAL.Repository
                 var item = await _dbSet.FindAsync(id);
 
                 if (item is null)
-                {
+                {   
                     throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
                 }
-
                 return item;
             }
             catch (Exception ex)
             {
+                _logger.LogError($"DAL.GetByIdAsync ERROR: {ex.Message}");
                 throw new RepositoryGetByIdException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
             }
         }
@@ -76,6 +79,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
+                _logger.LogError($"DAL.GetByPredicateAsync ERROR: {ex.Message}");
                 throw new RepositoryGetByPredicateException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
             }
         }
@@ -91,6 +95,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
+                _logger.LogError($"DAL.AddAsync ERROR: {ex.Message}");
                 throw new RepositoryAddException($"Failed to add {nameof(T)}. Exception: {ex.Message}");
             }
         }
@@ -110,6 +115,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
+                _logger.LogError($"DAL.UpdateAsync ERROR: {ex.Message}");
                 throw new RepositoryUpdateException($"Failed to update {nameof(T)}. Exception: {ex.Message}");
             }
         }
@@ -131,6 +137,7 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
+                _logger.LogError($"DAL.DeleteAsync ERROR: {ex.Message}");
                 throw new RepositoryDeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
             }
         }
