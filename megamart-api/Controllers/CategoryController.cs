@@ -19,7 +19,7 @@ namespace megamart_api.Controllers
         }
 
 
-        [HttpGet("categories")]
+        [HttpGet("list")]
         public async Task<IActionResult> GetAllCategories()
         {
             try
@@ -47,6 +47,54 @@ namespace megamart_api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"ENDPOINT.Category.AddCategory ERROR: {ex.Message}");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategory(Guid id)
+        {
+            try
+            {
+                var category = await _categoryService.GetByIdAsync(id);
+
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ENDPOINT.Category.GetCategory ERROR: {ex.Message}");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateCategory([FromBody]Category category)
+        {
+            try
+            {
+                await _categoryService.UpdateAsync(category);
+
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ENDPOINT.Category.UpdateCategory ERROR: {ex.Message}");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(Guid id)
+        {
+            try
+            {
+                await _categoryService.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ENDPOINT.Category.UpdateCategory ERROR: {ex.Message}");
                 return BadRequest(ex);
             }
         }
