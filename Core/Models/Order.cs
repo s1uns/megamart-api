@@ -18,6 +18,6 @@ namespace Core.Models
         public Guid DeliveryMethodId { get; set; }
         public decimal Total { get; set; }
         public DateTime CreatedAt { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; } = OrderStatus.JustCreated;
     }
 }

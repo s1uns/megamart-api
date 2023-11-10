@@ -15,5 +15,6 @@ namespace Core.Models
         public string LogoUrl { get; set; } = string.Empty;
         public List<Good> Goods { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool IsVerified { get; set; }
     }
 }
