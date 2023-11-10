@@ -1,6 +1,9 @@
-﻿namespace BLL.Services.OrderPositionManagement.Interfaces
+﻿using BLL.Services.GenericService.Interfaces;
+using Core.Models;
+
+namespace BLL.Services.OrderPositionManagement.Interfaces
 {
-    public interface IOrderPositionService
+    public interface IOrderPositionService : IGenericService<OrderPosition>
     {
     }
 }

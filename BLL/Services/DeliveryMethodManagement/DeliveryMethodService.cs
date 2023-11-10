@@ -5,7 +5,7 @@ using DAL.Repository.Interface;
 
 namespace BLL.Services.DeliveryMethodManagement
 {
-    public class DeliveryMethodService : GenericService<DeliveryMethod>, IDeliveryMethodSerrvice
+    public class DeliveryMethodService : GenericService<DeliveryMethod>, IDeliveryMethodService
     {
         public DeliveryMethodService(IRepository<DeliveryMethod> repository) : base(repository) { }
     }
