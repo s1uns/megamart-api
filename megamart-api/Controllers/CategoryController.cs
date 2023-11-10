@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace megamart_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/categories")]
     [ApiController]
     public class CategoryController : ControllerBase
     {

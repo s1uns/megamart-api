@@ -1,6 +1,9 @@
-﻿namespace BLL.Services.UserIdentityManagement.Interfaces
+﻿using BLL.Services.GenericService.Interfaces;
+using Core.Models;
+
+namespace BLL.Services.UserIdentityManagement.Interfaces
 {
-    public interface IUserIdentityService
+    public interface IUserIdentityService : IGenericService<UserIdentity>
     {
     }
 }

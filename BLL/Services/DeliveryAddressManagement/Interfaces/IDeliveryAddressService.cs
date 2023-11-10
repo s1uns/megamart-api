@@ -1,6 +1,9 @@
-﻿namespace BLL.Services.DeliveryAddressManagement.Interfaces
+﻿using BLL.Services.GenericService.Interfaces;
+using Core.Models;
+
+namespace BLL.Services.DeliveryAddressManagement.Interfaces
 {
-    public interface IDeliveryAddressService
+    public interface IDeliveryAddressService : IGenericService<DeliveryAddress>
     {
     }
 }
