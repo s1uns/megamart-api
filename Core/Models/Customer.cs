@@ -13,7 +13,7 @@ namespace Core.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string ProfilePicUrl { get; set; }
-        public List<Order> Orders { get; set;}
+        public ICollection<Order> Orders { get; set;}
         public DateTime? CreatedAt { get; set; }
     }
 }

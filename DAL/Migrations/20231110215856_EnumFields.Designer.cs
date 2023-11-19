@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using megamart_api.Context;
 
@@ -10,13 +11,15 @@ using megamart_api.Context;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MegamartContext))]
-    partial class MegamartContextModelSnapshot : ModelSnapshot
+    [Migration("20231110215856_EnumFields")]
+    partial class EnumFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("CategoryGood", b =>
@@ -39,7 +42,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("bfdc242e-480f-42a1-97fe-8681854906e0");
+                        .HasDefaultValue("52cd5c10-6e2c-4d23-aab9-0fd6ca4336a9");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -73,12 +76,12 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("199ecef0-2c91-435c-8013-2a6b0f3b7e1a");
+                        .HasDefaultValue("50791f34-d933-4ccb-a504-ccd2296e094d");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2023, 11, 19, 7, 47, 1, 39, DateTimeKind.Utc).AddTicks(5109));
+                        .HasDefaultValue(new DateTime(2023, 11, 10, 21, 58, 56, 778, DateTimeKind.Utc).AddTicks(8402));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -112,7 +115,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("57685096-40c8-445f-8365-a7b13c52b992");
+                        .HasDefaultValue("c9099200-9d46-4bf6-8d56-b331a216ffe8");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -152,7 +155,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("683d9b39-2e6b-45d7-b67f-9785cde2940c");
+                        .HasDefaultValue("8d73c905-c4ee-4c39-892d-bbccb7b9b870");
 
                     b.Property<string>("LogoUrl")
                         .ValueGeneratedOnAdd()
@@ -176,7 +179,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("4ce3d0c6-e772-4da4-9d10-f8e90518e528");
+                        .HasDefaultValue("9c518980-99a2-493d-a75e-1f3b941ef8ba");
 
                     b.Property<int>("AvailabilityStatus")
                         .HasColumnType("int");
@@ -185,10 +188,6 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImgUrl")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -210,38 +209,17 @@ namespace DAL.Migrations
                     b.ToTable("Goods");
                 });
 
-            modelBuilder.Entity("Core.Models.GoodOption", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("GoodId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Option")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GoodId");
-
-                    b.ToTable("GoodOptions");
-                });
-
             modelBuilder.Entity("Core.Models.Order", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("c9cc48e5-51a0-4efe-bf85-b5ba7ac99157");
+                        .HasDefaultValue("98f445d1-3b68-471e-b93b-a29022551fff");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2023, 11, 19, 7, 47, 1, 40, DateTimeKind.Utc).AddTicks(2448));
+                        .HasDefaultValue(new DateTime(2023, 11, 10, 21, 58, 56, 779, DateTimeKind.Utc).AddTicks(5683));
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -279,7 +257,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("b49c5556-d917-4c2e-8949-a3aa03a09986");
+                        .HasDefaultValue("60b7f59c-ad9a-46cd-a289-8de854f6f898");
 
                     b.Property<string>("GoodId")
                         .IsRequired()
@@ -309,7 +287,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("11bbe5ad-3ea8-4fd3-b87a-b16c823d250d");
+                        .HasDefaultValue("3297496a-919f-44dc-ab33-fcf262c0996f");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -368,17 +346,6 @@ namespace DAL.Migrations
                     b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("Core.Models.GoodOption", b =>
-                {
-                    b.HasOne("Core.Models.Good", "Good")
-                        .WithMany("GoodOptions")
-                        .HasForeignKey("GoodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Good");
-                });
-
             modelBuilder.Entity("Core.Models.Order", b =>
                 {
                     b.HasOne("Core.Models.Customer", "Customer")
@@ -428,11 +395,6 @@ namespace DAL.Migrations
             modelBuilder.Entity("Core.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Core.Models.Good", b =>
-                {
-                    b.Navigation("GoodOptions");
                 });
 
             modelBuilder.Entity("Core.Models.Order", b =>

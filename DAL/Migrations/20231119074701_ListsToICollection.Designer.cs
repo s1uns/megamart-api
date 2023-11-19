@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using megamart_api.Context;
 
@@ -10,9 +11,11 @@ using megamart_api.Context;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MegamartContext))]
-    partial class MegamartContextModelSnapshot : ModelSnapshot
+    [Migration("20231119074701_ListsToICollection")]
+    partial class ListsToICollection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

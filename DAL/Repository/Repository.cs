@@ -141,5 +141,20 @@ namespace DAL.Repository
                 throw new RepositoryDeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
             }
         }
+
+        public async Task<List<T>> AddRangeAsync(List<T> entities)
+        {
+            try
+            {
+                await _dbSet.AddRangeAsync(entities);
+                await SaveChangesAsync();
+                return entities;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"DAL.DeleteAsync ERROR: {ex.Message}");
+                throw new RepositoryDeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace BLL.Services.GenericService
         }
 
 
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace BLL.Services.GenericService
             }
         }
 
-        public async Task DeleteAsync(Guid entityId)
+        public virtual async Task DeleteAsync(Guid entityId)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace BLL.Services.GenericService
             }
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public virtual async Task<List<T>> GetAllAsync()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace BLL.Services.GenericService
             }
         }
 
-        public async Task<T> GetByIdAsync(Guid entityId)
+        public virtual async Task<T> GetByIdAsync(Guid entityId)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace BLL.Services.GenericService
             }
         }
 
-        public async Task<T> GetByPredicateAsync(Func<T, bool> predicate)
+        public virtual async Task<T> GetByPredicateAsync(Func<T, bool> predicate)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace BLL.Services.GenericService
             }
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
             try
             {

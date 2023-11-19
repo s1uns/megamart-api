@@ -12,6 +12,6 @@ namespace Core.Models
         public string Description { get; set; }
         public string Color { get; set; }
         public string LogoUrl { get; set; }
-        public List<Good>? Goods { get; set; }
+        public ICollection<Good>? Goods { get; set; }
     }
 }

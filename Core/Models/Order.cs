@@ -11,13 +11,13 @@ namespace Core.Models
     {
         public Customer Customer { get; set; }
         public Guid CustomerId { get; set; }
-        public List<OrderPosition> OrderPositions { get; set; }
+        public ICollection<OrderPosition> OrderPositions { get; set; }
         public DeliveryAddress DeliveryAddress { get; set; }
         public Guid DeliveryAddressId { get; set; }
         public DeliveryMethod DeliveryMethod { get; set; }
         public Guid DeliveryMethodId { get; set; }
         public decimal Total { get; set; }
         public DateTime CreatedAt { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; } = OrderStatus.JustCreated;
     }
 }
