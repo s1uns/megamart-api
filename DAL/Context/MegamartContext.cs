@@ -13,6 +13,7 @@ namespace megamart_api.Context
         public required DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
         public required DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public required DbSet<Good> Goods { get; set; }
+        public required DbSet<GoodOption> GoodOptions { get; set; }
         public required DbSet<Order> Orders { get; set; }
         public required DbSet<OrderPosition> OrderPositions { get; set; }
         public required DbSet<Seller> Sellers { get; set; }
