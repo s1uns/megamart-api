@@ -13,7 +13,7 @@ namespace Core.Models
         public string Email { get; set; } = string.Empty;
         public string Site { get; set; } = string.Empty;
         public string LogoUrl { get; set; } = string.Empty;
-        public List<Good> Goods { get; set; }
+        public ICollection<Good> Goods { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsVerified { get; set; }
     }

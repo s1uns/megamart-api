@@ -11,7 +11,7 @@ namespace Core.Models
     {
         public Customer Customer { get; set; }
         public Guid CustomerId { get; set; }
-        public List<OrderPosition> OrderPositions { get; set; }
+        public ICollection<OrderPosition> OrderPositions { get; set; }
         public DeliveryAddress DeliveryAddress { get; set; }
         public Guid DeliveryAddressId { get; set; }
         public DeliveryMethod DeliveryMethod { get; set; }
