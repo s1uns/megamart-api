@@ -12,6 +12,8 @@ namespace megamart_api.Mapper
             CreateMap<CreateGoodDto, Good>();
             CreateMap<EditGoodDto, Good>();
             CreateMap<Good, GoodShortInfoDto>()
+                .ForMember(c => c.SellerName, otp => otp.MapFrom(src => src.Seller.Name));            
+            CreateMap<Good, GoodFullInfoDto>()
                 .ForMember(c => c.SellerName, otp => otp.MapFrom(src => src.Seller.Name));
         }
     }
