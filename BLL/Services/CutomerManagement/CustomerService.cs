@@ -1,13 +1,24 @@
-﻿using BLL.Services.CutomerManagement.Interfaces;
+﻿using AutoMapper;
+using BLL.Services.CategoryManager;
+using BLL.Services.CutomerManagement.Interfaces;
 using BLL.Services.GenericService;
 using Core.Models;
 using DAL.Repository.Interface;
+using Microsoft.Extensions.Logging;
 
 namespace BLL.Services.CutomerManagement
 {
-    public class CustomerService : GenericService<Customer>, ICustomerService
+    public class CustomerService : ICustomerService
     {
-        public CustomerService(IRepository<Customer> repository) : base(repository) { }
+        private readonly IRepository<Customer> _repository;
+        private readonly ILogger<CustomerService> _logger;
+        private readonly IMapper _mapper;
+        public CustomerService(IRepository<Customer> repository, ILogger<CustomerService> logger, IMapper mapper) 
+        { 
+            _repository = repository;
+            _logger = logger;
+            _mapper = mapper;
+        }
 
     }
 }
