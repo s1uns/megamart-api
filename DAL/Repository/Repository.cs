@@ -41,7 +41,7 @@ namespace DAL.Repository
             catch (Exception ex)
             {
                 _logger.LogError($"DAL.GetAllAsync ERROR: {ex.Message}");
-                throw new RepositoryGetAllException($"There was a problem during returning the list of {nameof(T)} entities: {ex.Message}");
+                throw new RepositoryGetAllException($"There was a problem during returning the list of {typeof(T).Name} entities: {ex.Message}");
             }
         }
 
@@ -53,14 +53,14 @@ namespace DAL.Repository
 
                 if (item is null)
                 {   
-                    throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
+                    throw new RepositoryIdNotRetrievedException($"{typeof(T).Name} with the specified Id not found.");
                 }
                 return item;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"DAL.GetByIdAsync ERROR: {ex.Message}");
-                throw new RepositoryGetByIdException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryGetByIdException($"Failed to get {typeof(T).Name}. Exception: {ex.Message}");
             }
         }
 
@@ -72,7 +72,7 @@ namespace DAL.Repository
 
                 if (item is null)
                 {
-                    throw new RepositoryPredicateNotFoundException($"{nameof(T)} with the specified predicate not found.");
+                    throw new RepositoryPredicateNotFoundException($"{typeof(T).Name} with the specified predicate not found.");
                 }
 
                 return item;
@@ -80,7 +80,7 @@ namespace DAL.Repository
             catch (Exception ex)
             {
                 _logger.LogError($"DAL.GetByPredicateAsync ERROR: {ex.Message}");
-                throw new RepositoryGetByPredicateException($"Failed to get {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryGetByPredicateException($"Failed to get {typeof(T).Name}. Exception: {ex.Message}");
             }
         }
 
@@ -96,7 +96,7 @@ namespace DAL.Repository
             catch (Exception ex)
             {
                 _logger.LogError($"DAL.AddAsync ERROR: {ex.Message}");
-                throw new RepositoryAddException($"Failed to add {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryAddException($"Failed to add {typeof(T).Name}. Exception: {ex.Message}");
             }
         }
 
@@ -106,7 +106,7 @@ namespace DAL.Repository
             {
                 if (!_dbSet.Any(e => e.Id == entity.Id))
                 {
-                    throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
+                    throw new RepositoryIdNotRetrievedException($"{typeof(T).Name} with the specified Id not found.");
                 }
 
                 _dbSet.Update(entity);
@@ -116,7 +116,7 @@ namespace DAL.Repository
             catch (Exception ex)
             {
                 _logger.LogError($"DAL.UpdateAsync ERROR: {ex.Message}");
-                throw new RepositoryUpdateException($"Failed to update {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryUpdateException($"Failed to update {typeof(T).Name}. Exception: {ex.Message}");
             }
         }
 
@@ -129,7 +129,7 @@ namespace DAL.Repository
 
                 if (item is null)
                 {
-                    throw new RepositoryIdNotRetrievedException($"{nameof(T)} with the specified Id not found.");
+                    throw new RepositoryIdNotRetrievedException($"{typeof(T).Name} with the specified Id not found.");
                 }
 
                 _dbSet.Remove(item);
@@ -138,7 +138,7 @@ namespace DAL.Repository
             catch (Exception ex)
             {
                 _logger.LogError($"DAL.DeleteAsync ERROR: {ex.Message}");
-                throw new RepositoryDeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
+                throw new RepositoryDeleteException($"Failed to delete {typeof(T).Name}. Exception: {ex.Message}");
             }
         }
 
@@ -152,8 +152,23 @@ namespace DAL.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError($"DAL.DeleteAsync ERROR: {ex.Message}");
-                throw new RepositoryDeleteException($"Failed to delete {nameof(T)}. Exception: {ex.Message}");
+                _logger.LogError($"DAL.AddRangeAsync ERROR: {ex.Message}");
+                throw new RepositoryAddRangeException($"Failed to delete {typeof(T).Name}. Exception: {ex.Message}");
+            }
+        }
+
+        public async Task<List<T>> GetRangeAsync(Func<T, bool> predicate)
+        {
+            try
+            {
+                var items = (await GetAllAsync()).Where(predicate).ToList();
+                
+                return items;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"DAL.GetRangeAsync ERROR: {ex.Message}");
+                throw new RepositoryGetRangeException($"Failed to get list of {typeof(T).Name} by predicate. Exception: {ex.Message}");
             }
         }
     }
