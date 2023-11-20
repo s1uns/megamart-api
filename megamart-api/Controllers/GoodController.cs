@@ -1,5 +1,7 @@
-﻿using BLL.Services.GoodManagement.Interfaces;
+﻿/*using BLL.Services.GoodManagement.Interfaces;
 using Core.Models;
+using Infrustructure.Dto.Goods;
+using Infrustructure.Dto.Goods;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,13 +37,13 @@ namespace megamart_api.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddGood([FromBody]Good good)
+        public async Task<IActionResult> AddGood([FromBody]CreateGoodDto goodDto)
         {
             try
             {
-                await _goodService.AddAsync(good);
+                var result = await _goodService.AddAsync(goodDto);
 
-                return Ok(good);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -99,3 +101,4 @@ namespace megamart_api.Controllers
         }
     }
 }
+*/
