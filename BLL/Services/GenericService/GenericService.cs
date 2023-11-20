@@ -1,6 +1,7 @@
 ﻿using BLL.Services.GenericService.Interfaces;
 using Core.Models;
 using DAL.Repository.Interface;
+using Infrustructure.Dto.Categories;
 using Infrustructure.ErrorHandling.Services.GenericException;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +23,20 @@ namespace BLL.Services.GenericService
             _logger = logger;
         }
 
-
+        public virtual async Task<T> AddAsync(T entity)
+        {
+            try
+            {
+                
+                await _repository.AddAsync(entity);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.AddAsync {nameof(T)} ERROR: {ex.Message}");
+                throw new ServiceAddException(ex.Message);
+            }
+        }
 
         public virtual async Task DeleteAsync(Guid entityId)
         {
