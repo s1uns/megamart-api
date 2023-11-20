@@ -23,19 +23,6 @@ namespace BLL.Services.GenericService
         }
 
 
-        public virtual async Task<T> AddAsync(T entity)
-        {
-            try
-            {
-                await _repository.AddAsync(entity);
-                return entity;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"BLL.AddAsync {nameof(T)} ERROR: {ex.Message}");
-                throw new ServiceAddException(ex.Message);
-            }
-        }
 
         public virtual async Task DeleteAsync(Guid entityId)
         {
