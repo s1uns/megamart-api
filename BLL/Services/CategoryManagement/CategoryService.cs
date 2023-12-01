@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using BLL.Services.CategoryManager.Interfaces;
-using BLL.Services.GenericService;
-using BLL.Services.GoodManagement;
 using Core.Models;
 using DAL.Repository.Interface;
 using Infrustructure.Dto.Categories;

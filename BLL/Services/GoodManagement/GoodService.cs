@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using BLL.Services.GenericService;
 using BLL.Services.GoodManagement.Interfaces;
 using Core.Models;
-using DAL.Repository;
 using DAL.Repository.Interface;
+using Infrustructure.Dto.Categories;
 using Infrustructure.Dto.Goods;
 using Infrustructure.ErrorHandling.Services.GenericException;
 using Microsoft.Extensions.Logging;
@@ -14,30 +13,26 @@ namespace BLL.Services.GoodManagement
     {
         private readonly IRepository<Good> _repository;
         private readonly ILogger<GoodService> _logger;
-        private readonly IRepository<GoodOption> _optionRepository;
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<GoodOption> _optionsRepository;
         private readonly IMapper _mapper;
 
-        public GoodService(IRepository<Good> repository, ILogger<GoodService> logger, IRepository<GoodOption> optionRepository, IRepository<Category> categoryRepository, IMapper mapper)
+        public GoodService(IRepository<Good> repository, ILogger<GoodService> logger, IRepository<GoodOption> optionRepository, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
-            _optionRepository = optionRepository;
-            _categoryRepository = categoryRepository;
+            _optionsRepository = optionRepository;
         }
 
         public async Task<CreateGoodDto> AddAsync(CreateGoodDto goodDto)
         {
             try
             {
+                //TODO: for authorized seller add getting his id piece
                 var entity = _mapper.Map<Good>(goodDto);
-                entity.Categories = await _categoryRepository.GetRangeAsync(c => goodDto.CategoryIds.Contains(c.Id));
-                entity.CreationStatus = Core.Enums.GoodCreationStatus.JustCreated;
-                entity.AvailabilityStatus = Core.Enums.GoodAvailabilityStatus.Available;
                 await _repository.AddAsync(entity);
 
-                await _optionRepository.AddRangeAsync(entity.GoodOptions.ToList());
+                await _optionsRepository.AddRangeAsync(entity.GoodOptions.ToList());
                 return goodDto;
             }
             catch (Exception ex)
@@ -47,13 +42,54 @@ namespace BLL.Services.GoodManagement
             }
         }
 
+        public async Task DeleteAsync(Guid goodId)
+        {
+            try
+            {
+                await _repository.DeleteAsync(goodId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.DeleteAsync Good ERROR: {ex.Message}");
+                throw new ServiceDeleteException(ex.Message);
+            }
+        }
+
+        public async Task<List<GoodShortInfoDto>> GetAllAsync()
+        {
+            try
+            {
+                var categories = _mapper.Map<List<GoodShortInfoDto>>(await _repository.GetAllAsync());
+                return categories;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetAllAsync Good ERROR: {ex.Message}");
+                throw new ServiceGetAllException(ex.Message);
+            }
+        }
+
+        public async Task<GoodFullInfoDto> GetByIdAsync(Guid goodId)
+        {
+            try
+            {
+                var good = _mapper.Map<GoodFullInfoDto>(await _repository.GetByIdAsync(goodId));
+                return good;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetByIdAsync Good ERROR: {ex.Message}");
+                throw new ServiceGetByIdException(ex.Message);
+            }
+        }
+
         public async Task<EditGoodDto> UpdateAsync(EditGoodDto newGoodDto)
         {
             try
             {
                 var newGood = await _repository.GetByIdAsync(newGoodDto.Id);
                 _mapper.Map<Good>(newGoodDto);
-
+                await _repository.UpdateAsync(newGood);
                 return newGoodDto;
             }
             catch (Exception ex)

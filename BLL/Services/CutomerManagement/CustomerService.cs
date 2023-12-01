@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using BLL.Services.CategoryManager;
 using BLL.Services.CutomerManagement.Interfaces;
-using BLL.Services.GenericService;
 using Core.Models;
 using DAL.Repository.Interface;
 using Microsoft.Extensions.Logging;

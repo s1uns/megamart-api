@@ -1,5 +1,4 @@
-﻿using BLL.Services.GenericService.Interfaces;
-using Core.Models;
+﻿using Core.Models;
 
 namespace BLL.Services.CutomerManagement.Interfaces
 {
