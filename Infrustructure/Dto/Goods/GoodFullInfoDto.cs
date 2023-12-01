@@ -16,8 +16,9 @@ namespace Infrustructure.Dto.Goods
         decimal Price, 
         string ImgUrl, 
         List<GoodOptionDto> GoodOptions, 
-        GoodCreationStatus GoodCreationStatus,
-        GoodAvailabilityStatus GoodAvailabilityStatus,
-        string SellerName
+        GoodCreationStatus CreationStatus,
+        GoodAvailabilityStatus AvailabilityStatus,
+        string SellerName,
+        int Rating
     );
 }

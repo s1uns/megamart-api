@@ -11,6 +11,7 @@ namespace Infrustructure.Dto.Goods
         string Name, 
         decimal Price, 
         string ImgUrl, 
-        string SellerName
+        string SellerName,
+        int Rating
     );
 }

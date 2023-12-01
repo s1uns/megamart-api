@@ -16,5 +16,6 @@ namespace Infrustructure.Dto.Goods
         string ImgUrl,
         List<Guid> CategoryIds, 
         List<GoodOptionDto> GoodOptions
+
     );
 }
