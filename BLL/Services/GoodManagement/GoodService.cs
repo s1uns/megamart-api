@@ -3,8 +3,11 @@ using BLL.Services.GoodManagement.Interfaces;
 using Core.Models;
 using DAL.Repository.Interface;
 using Infrustructure.Dto.Categories;
+using Infrustructure.Dto.GoodOptions;
 using Infrustructure.Dto.Goods;
 using Infrustructure.ErrorHandling.Services.GenericException;
+using megamart_api.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BLL.Services.GoodManagement
@@ -15,34 +18,40 @@ namespace BLL.Services.GoodManagement
         private readonly ILogger<GoodService> _logger;
         private readonly IRepository<GoodOption> _optionsRepository;
         private readonly IMapper _mapper;
+        private readonly MegamartContext _context;
 
-        public GoodService(IRepository<Good> repository, ILogger<GoodService> logger, IRepository<GoodOption> optionRepository, IMapper mapper)
+        public GoodService(IRepository<Good> repository, ILogger<GoodService> logger, IRepository<GoodOption> optionRepository, IMapper mapper, MegamartContext context)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
             _optionsRepository = optionRepository;
+            _context = context;
         }
 
-        public async Task<CreateGoodDto> AddAsync(CreateGoodDto goodDto)
+        public async Task<CreateGoodDto> AddGoodAsync(CreateGoodDto goodDto)
         {
             try
             {
                 //TODO: for authorized seller add getting his id piece
                 var entity = _mapper.Map<Good>(goodDto);
+                entity.SellerId = Guid.Parse("11bbe5ad-3ea8-4fd3-b87a-b16c823d250d");
+                entity.Rating = 0;
                 await _repository.AddAsync(entity);
-
-                await _optionsRepository.AddRangeAsync(entity.GoodOptions.ToList());
+                entity.Categories = await _context.Categories
+                    .Where(c => goodDto.CategoryIds
+                    .Contains(c.Id))
+                    .ToListAsync();
                 return goodDto;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.AddAsync Good ERROR: {ex.Message}");
+                _logger.LogError($"BLL.AddGoodAsync Good ERROR: {ex.Message}");
                 throw new ServiceAddException(ex.Message);
             }
         }
 
-        public async Task DeleteAsync(Guid goodId)
+        public async Task DeleteGoodAsync(Guid goodId)
         {
             try
             {
@@ -50,40 +59,52 @@ namespace BLL.Services.GoodManagement
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.DeleteAsync Good ERROR: {ex.Message}");
+                _logger.LogError($"BLL.DeleteGoodAsync Good ERROR: {ex.Message}");
                 throw new ServiceDeleteException(ex.Message);
             }
         }
 
-        public async Task<List<GoodShortInfoDto>> GetAllAsync()
+        public async Task<List<GoodShortInfoDto>> GetAllGoodsAsync()
         {
             try
             {
-                var categories = _mapper.Map<List<GoodShortInfoDto>>(await _repository.GetAllAsync());
+                var categories = _mapper.Map<List<GoodShortInfoDto>>(await _context.Goods
+                    .Include(g => g.Seller)
+                    .ToListAsync());
                 return categories;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.GetAllAsync Good ERROR: {ex.Message}");
+                _logger.LogError($"BLL.GetAllGoodsAsync Good ERROR: {ex.Message}");
                 throw new ServiceGetAllException(ex.Message);
             }
         }
 
-        public async Task<GoodFullInfoDto> GetByIdAsync(Guid goodId)
+        public async Task<GoodFullInfoDto> GetGoodByIdAsync(Guid goodId)
         {
             try
             {
-                var good = _mapper.Map<GoodFullInfoDto>(await _repository.GetByIdAsync(goodId));
-                return good;
+                var goodModel = await _context.Goods
+                    .Where(g => g.Id == goodId)
+                    .Include(g => g.Seller)
+                    .Include(g => g.GoodOptions)
+                    .FirstOrDefaultAsync();
+
+                if(goodModel is null)
+                {
+                    throw new Exception("Wrong good");
+                }
+                var goodDto = _mapper.Map<GoodFullInfoDto>(goodModel);
+                return goodDto;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.GetByIdAsync Good ERROR: {ex.Message}");
+                _logger.LogError($"BLL.GetGoodByIdAsync Good ERROR: {ex.Message}");
                 throw new ServiceGetByIdException(ex.Message);
             }
         }
 
-        public async Task<EditGoodDto> UpdateAsync(EditGoodDto newGoodDto)
+        public async Task<EditGoodDto> UpdateGoodAsync(EditGoodDto newGoodDto)
         {
             try
             {
@@ -94,7 +115,7 @@ namespace BLL.Services.GoodManagement
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.UpdateAsync Good ERROR: {ex.Message}");
+                _logger.LogError($"BLL.UpdateGoodAsync Good ERROR: {ex.Message}");
                 throw new ServiceUpdateException(ex.Message);
             }
         }
