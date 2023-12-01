@@ -6,10 +6,10 @@ namespace BLL.Services.GoodManagement.Interfaces
 {
     public interface IGoodService
     {
-        Task<CreateGoodDto> AddAsync(CreateGoodDto goodDto);
-        Task<EditGoodDto> UpdateAsync(EditGoodDto newGoodDto);
-        Task<List<GoodShortInfoDto>> GetAllAsync();
-        Task<GoodFullInfoDto> GetByIdAsync(Guid categoryId);
-        Task DeleteAsync(Guid categoryId);
+        Task<CreateGoodDto> AddGoodAsync(CreateGoodDto goodDto);
+        Task<EditGoodDto> UpdateGoodAsync(EditGoodDto newGoodDto);
+        Task<List<GoodShortInfoDto>> GetAllGoodsAsync();
+        Task<GoodFullInfoDto> GetGoodByIdAsync(Guid categoryId);
+        Task DeleteGoodAsync(Guid categoryId);
     }
 }
