@@ -1,4 +1,4 @@
-﻿/*using BLL.Services.GoodManagement.Interfaces;
+﻿using BLL.Services.GoodManagement.Interfaces;
 using Core.Models;
 using Infrustructure.Dto.Goods;
 using Infrustructure.Dto.Goods;
@@ -25,7 +25,7 @@ namespace megamart_api.Controllers
         {
             try
             {
-                var allGoods = await _goodService.GetAllAsync();
+                var allGoods = await _goodService.GetAllGoodsAsync();
 
                 return Ok(allGoods);
             }
@@ -37,11 +37,11 @@ namespace megamart_api.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddGood([FromBody]CreateGoodDto goodDto)
+        public async Task<IActionResult> AddGood([FromBody] CreateGoodDto goodDto)
         {
             try
             {
-                var result = await _goodService.AddAsync(goodDto);
+                var result = await _goodService.AddGoodAsync(goodDto);
 
                 return Ok(result);
             }
@@ -57,7 +57,7 @@ namespace megamart_api.Controllers
         {
             try
             {
-                var good = await _goodService.GetByIdAsync(id);
+                var good = await _goodService.GetGoodByIdAsync(id);
 
                 return Ok(good);
             }
@@ -69,11 +69,11 @@ namespace megamart_api.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateGood([FromBody]Good good)
+        public async Task<IActionResult> UpdateGood([FromBody] EditGoodDto good)
         {
             try
             {
-                await _goodService.UpdateAsync(good);
+                await _goodService.UpdateGoodAsync(good);
 
                 return Ok(good);
             }
@@ -89,7 +89,7 @@ namespace megamart_api.Controllers
         {
             try
             {
-                await _goodService.DeleteAsync(id);
+                await _goodService.DeleteGoodAsync(id);
 
                 return Ok();
             }
@@ -101,4 +101,3 @@ namespace megamart_api.Controllers
         }
     }
 }
-*/
