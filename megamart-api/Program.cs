@@ -1,7 +1,5 @@
 using BLL.Services.CategoryManager;
 using BLL.Services.CategoryManager.Interfaces;
-using BLL.Services.GenericService;
-using BLL.Services.GenericService.Interfaces;
 using BLL.Services.GoodManagement.Interfaces;
 using BLL.Services.GoodManagement;
 using DAL.Repository;
@@ -41,7 +39,6 @@ try
     builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
     //Services
-    builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
     builder.Services.AddScoped<ICategoryService, CategoryService>();
     builder.Services.AddScoped<IGoodService, GoodService>();
 
