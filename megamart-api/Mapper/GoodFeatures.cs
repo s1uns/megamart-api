@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Models;
 using Infrustructure.Dto.Categories;
+using Infrustructure.Dto.GoodOptions;
 using Infrustructure.Dto.Goods;
 
 namespace megamart_api.Mapper
@@ -12,9 +13,11 @@ namespace megamart_api.Mapper
             CreateMap<CreateGoodDto, Good>();
             CreateMap<EditGoodDto, Good>();
             CreateMap<Good, GoodShortInfoDto>()
-                .ForMember(c => c.SellerName, otp => otp.MapFrom(src => src.Seller.Name));            
+                .ForMember(g => g.SellerName, otp => otp.MapFrom(src => src.Seller.Name));            
             CreateMap<Good, GoodFullInfoDto>()
-                .ForMember(c => c.SellerName, otp => otp.MapFrom(src => src.Seller.Name));
+                .ForMember(g => g.SellerName, otp => otp.MapFrom(src => src.Seller.Name));
+            CreateMap<GoodOptionDto, GoodOption>();
+            CreateMap<GoodOption, GoodOptionDto>();
         }
     }
 }

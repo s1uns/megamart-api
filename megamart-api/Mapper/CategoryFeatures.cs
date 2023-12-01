@@ -14,7 +14,6 @@ namespace megamart_api.Mapper
             CreateMap<Category, CategoryShortInfoDto>()
                 .ForMember(c => c.Name, otp => otp.MapFrom(src => src.Name))
                 .ForMember(c => c.Color, otp => otp.MapFrom(src => src.Color));
-;
         }
     }
 }
