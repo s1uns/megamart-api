@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Infrustructure.Dto.GoodOptions;
 
 namespace Infrustructure.Dto.Goods
 {
@@ -9,6 +10,6 @@ namespace Infrustructure.Dto.Goods
         decimal Price, 
         string ImgUrl,
         List<Guid> CategoryIds, 
-        List<GoodOption> GoodOptions
+        List<GoodOptionDto> GoodOptions
     );
 }

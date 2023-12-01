@@ -1,7 +1,4 @@
-﻿using Core.Models;
-
-
-namespace Infrustructure.Dto.Categories
+﻿namespace Infrustructure.Dto.Categories
 {
     public record CreateCategoryDto(
         string Name,

@@ -1,5 +1,6 @@
 ﻿using Core.Enums;
 using Core.Models;
+using Infrustructure.Dto.GoodOptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Infrustructure.Dto.Goods
         string Description,
         decimal Price, 
         string ImgUrl, 
-        List<GoodOption> GoodOptions, 
+        List<GoodOptionDto> GoodOptions, 
         GoodCreationStatus GoodCreationStatus,
         GoodAvailabilityStatus GoodAvailabilityStatus,
         string SellerName
