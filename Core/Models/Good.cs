@@ -19,5 +19,6 @@ namespace Core.Models
         public ICollection<GoodOption> GoodOptions { get; set; }
         public GoodCreationStatus CreationStatus { get; set; }
         public GoodAvailabilityStatus AvailabilityStatus { get; set; }
+        public int Rating { get; set; }
     }
 }
