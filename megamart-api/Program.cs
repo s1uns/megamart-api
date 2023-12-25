@@ -4,6 +4,7 @@ using BLL.Services.GenericService;
 using BLL.Services.GenericService.Interfaces;
 using DAL.Repository;
 using DAL.Repository.Interface;
+using megamart_api.BuildExtensions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -32,20 +33,18 @@ try
 
 
     builder.Services.AddDbContext<MegamartContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+
+
     builder.Services.AddControllers();
-
-
-    //Repository
-    builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-    //Services
-    builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-    builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSetSwagger();
+    builder.Services.AddServices();
+    builder.Services.AddSetSecurity(builder.Configuration);
+    builder.Services.AddSetCors();
+    builder.Services.AddSwaggerGen();
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
 
