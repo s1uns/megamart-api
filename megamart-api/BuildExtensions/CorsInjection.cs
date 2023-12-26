@@ -11,7 +11,8 @@
                 o.AddPolicy(PolicyName,
                     policy =>
                     {
-                        policy.AllowAnyOrigin()
+                        policy
+                            .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
