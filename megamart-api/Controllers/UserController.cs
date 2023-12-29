@@ -1,4 +1,4 @@
-﻿using BLL.Services.CategoryManager;
+﻿/*using BLL.Services.CategoryManager;
 using BLL.Services.CategoryManager.Interfaces;
 using BLL.Services.CutomerManagement.Interfaces;
 using BLL.Services.SellerManagement.Interfaces;
@@ -152,3 +152,4 @@ namespace megamart_api.Controllers
         }
     }
 }
+*/

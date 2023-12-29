@@ -1,4 +1,4 @@
-﻿using BLL.Services.DeliveryMethodManagement.Interfaces;
+﻿/*using BLL.Services.DeliveryMethodManagement.Interfaces;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -98,3 +98,4 @@ namespace megamart_api.Controllers
         }
     }
 }
+*/

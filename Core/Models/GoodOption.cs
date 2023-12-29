@@ -10,6 +10,6 @@ namespace Core.Models
     {
         public Good Good { get; set; }
         public Guid GoodId { get; set; }
-        public string Option { get; set; }
+        public string OptionName { get; set; }
     }
 }

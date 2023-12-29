@@ -17,7 +17,8 @@ namespace Core.Models
         public string ImgUrl { get; set; }
         public ICollection<Category> Categories { get; set; }
         public ICollection<GoodOption> GoodOptions { get; set; }
-        public GoodCreationStatus CreationStatus { get; set; } = GoodCreationStatus.JustCreated;
+        public GoodCreationStatus CreationStatus { get; set; }
         public GoodAvailabilityStatus AvailabilityStatus { get; set; }
+        public int Rating { get; set; }
     }
 }

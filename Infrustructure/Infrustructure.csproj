@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Dto\Account\" />
     <Folder Include="ErrorHandling\Services\Category\" />
     <Folder Include="ErrorHandling\Services\Customer\" />
     <Folder Include="ErrorHandling\Services\DeliveryAddress\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using BLL.Services.GenericService.Interfaces;
+﻿
 using Core.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services.SellerManagement.Interfaces
 {
-    public interface ISellerService : IGenericService<Seller>
+    public interface ISellerService
     {
     }
 }

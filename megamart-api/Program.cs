@@ -1,14 +1,14 @@
 using BLL.Services.CategoryManager;
 using BLL.Services.CategoryManager.Interfaces;
-using BLL.Services.GenericService;
-using BLL.Services.GenericService.Interfaces;
+using BLL.Services.GoodManagement.Interfaces;
+using BLL.Services.GoodManagement;
 using DAL.Repository;
 using DAL.Repository.Interface;
 using megamart_api.BuildExtensions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-
+using System.Reflection;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -33,8 +33,6 @@ try
 
 
     builder.Services.AddDbContext<MegamartContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
-
-
     builder.Services.AddControllers();
     builder.Services.AddSwaggerGen();
     builder.Services.AddEndpointsApiExplorer();
@@ -43,6 +41,7 @@ try
     builder.Services.AddSetSecurity(builder.Configuration);
     builder.Services.AddSetCors();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 

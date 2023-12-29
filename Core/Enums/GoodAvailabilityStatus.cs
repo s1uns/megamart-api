@@ -12,4 +12,6 @@ namespace Core.Enums
         OutOfStock,
         Discontinued
     }
+
 }
+

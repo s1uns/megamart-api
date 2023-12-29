@@ -1,6 +1,7 @@
 ﻿using BLL.Services.CategoryManager;
 using BLL.Services.CategoryManager.Interfaces;
 using Core.Models;
+using Infrustructure.Dto.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,23 +32,23 @@ namespace megamart_api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"ENDPOINT.Category.GetAllCategories ERROR: {ex.Message}");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddCategory([FromBody]Category category)
+        public async Task<IActionResult> AddCategory([FromBody]CreateCategoryDto categoryDto)
         {
             try
             {
-                await _categoryService.AddAsync(category);
-
-                return Ok(category);
+                var result = await _categoryService.AddAsync(categoryDto);
+                
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"ENDPOINT.Category.AddCategory ERROR: {ex.Message}");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -56,30 +57,30 @@ namespace megamart_api.Controllers
         {
             try
             {
-                var category = await _categoryService.GetByIdAsync(id);
+                var categoryDto = await _categoryService.GetByIdAsync(id);
 
-                return Ok(category);
+                return Ok(categoryDto);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"ENDPOINT.Category.GetCategory ERROR: {ex.Message}");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateCategory([FromBody]Category category)
+        public async Task<IActionResult> UpdateCategory([FromBody] EditCategoryDto categoryDto)
         {
             try
             {
-                await _categoryService.UpdateAsync(category);
+                await _categoryService.UpdateAsync(categoryDto);
 
-                return Ok(category);
+                return Ok(categoryDto);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"ENDPOINT.Category.UpdateCategory ERROR: {ex.Message}");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -95,7 +96,7 @@ namespace megamart_api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"ENDPOINT.Category.DeleteCategory ERROR: {ex.Message}");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

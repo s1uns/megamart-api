@@ -14,7 +14,7 @@ namespace DAL.Repository.Interface
         public Task<T> GetByIdAsync(Guid id);
 
         public Task<T> GetByPredicateAsync(Func<T, bool> predicate);
-
+        public Task<List<T>> GetRangeAsync(Func<T, bool> predicate); 
         public Task<T> AddAsync(T entity);
         public Task<List<T>> AddRangeAsync(List<T> entities);
 
