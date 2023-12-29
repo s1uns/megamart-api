@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Infrustructure.Dto.GoodOptions
 {
     public record GoodOptionDto( 
-    string OptionName
+        Guid Id,
+        string OptionName
     );
 }
