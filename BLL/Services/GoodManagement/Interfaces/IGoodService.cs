@@ -8,7 +8,7 @@ namespace BLL.Services.GoodManagement.Interfaces
     {
         Task<CreateGoodDto> AddGoodAsync(CreateGoodDto goodDto);
         Task<EditGoodDto> UpdateGoodAsync(EditGoodDto newGoodDto);
-        Task<List<GoodShortInfoDto>> GetAllGoodsAsync();
+        Task<List<GoodFullInfoDto>> GetAllGoodsAsync();
         Task<GoodFullInfoDto> GetGoodByIdAsync(Guid categoryId);
         Task DeleteGoodAsync(Guid categoryId);
     }

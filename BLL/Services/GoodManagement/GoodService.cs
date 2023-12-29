@@ -64,12 +64,13 @@ namespace BLL.Services.GoodManagement
             }
         }
 
-        public async Task<List<GoodShortInfoDto>> GetAllGoodsAsync()
+        public async Task<List<GoodFullInfoDto>> GetAllGoodsAsync()
         {
             try
             {
-                var categories = _mapper.Map<List<GoodShortInfoDto>>(await _context.Goods
+                var categories = _mapper.Map<List<GoodFullInfoDto>>(await _context.Goods
                     .Include(g => g.Seller)
+                    .Include(g => g.GoodOptions)
                     .ToListAsync());
                 return categories;
             }
