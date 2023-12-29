@@ -4,6 +4,7 @@ using BLL.Services.GoodManagement.Interfaces;
 using BLL.Services.GoodManagement;
 using DAL.Repository;
 using DAL.Repository.Interface;
+using megamart_api.BuildExtensions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -33,20 +34,16 @@ try
 
     builder.Services.AddDbContext<MegamartContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
     builder.Services.AddControllers();
-
-
-    //Repository
-    builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-    //Services
-    builder.Services.AddScoped<ICategoryService, CategoryService>();
-    builder.Services.AddScoped<IGoodService, GoodService>();
-
-
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddSwaggerGen();
     builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSetSwagger();
+    builder.Services.AddServices();
+    builder.Services.AddSetSecurity(builder.Configuration);
+    builder.Services.AddSetCors();
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
     var app = builder.Build();
 
@@ -58,7 +55,9 @@ try
     }
 
     app.UseHttpsRedirection();
+    app.UseCors(CorsInjection.PolicyName);
 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();
