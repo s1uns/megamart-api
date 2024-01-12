@@ -13,7 +13,11 @@ namespace megamart_api.Mapper
             CreateMap<Category, CategoryFullInfoDto>();
             CreateMap<Category, CategoryShortInfoDto>()
                 .ForMember(c => c.Name, otp => otp.MapFrom(src => src.Name))
-                .ForMember(c => c.Color, otp => otp.MapFrom(src => src.Color));
+                .ForMember(c => c.BackgroundColor, otp => otp.MapFrom(src => src.BackgroundColor))
+                .ForMember(c => c.FontColor, otp => otp.MapFrom(src => src.FontColor));
+
+            CreateMap<Category,Guid>().ConvertUsing(c => c.Id);
+                
         }
     }
 }
