@@ -23,8 +23,12 @@ namespace DAL.Configurations
                 .HasDefaultValue("No description");
 
             modelBuilder
-                .Property(c => c.Color)
-                .HasDefaultValue("FFFFFF");
+                .Property(c => c.BackgroundColor)
+                .HasDefaultValue("FFFFFF");            
+            
+            modelBuilder
+                .Property(c => c.FontColor)
+                .HasDefaultValue("000000");
 
             modelBuilder
                 .Property(c => c.LogoUrl)

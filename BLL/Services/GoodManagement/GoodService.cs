@@ -6,6 +6,7 @@ using Infrustructure.Dto.Categories;
 using Infrustructure.Dto.GoodOptions;
 using Infrustructure.Dto.Goods;
 using Infrustructure.ErrorHandling.Services.GenericException;
+using Infrustructure.ErrorHandling.Services.GenericExceptions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -51,6 +52,43 @@ namespace BLL.Services.GoodManagement
             }
         }
 
+        public async Task<GoodFullInfoDto> AddGoodToCategoryAsync(Guid goodId, Guid categoryId)
+        {
+            try
+            {
+               var good = await _context
+                    .Goods
+                    .Include(g => g.Categories)
+                    .FirstOrDefaultAsync(g => g.Id == goodId);
+
+               if (good is null)
+               {
+                    throw new ServiceEntityIsNullException("Wrong good");
+               }
+
+               var category = await _context
+                    .Categories
+                    .Include(c => c.Goods)
+                    .FirstOrDefaultAsync(c => c.Id == categoryId);
+               
+               if (category is null)
+               {
+                    throw new ServiceEntityIsNullException("Wrong category");
+               }
+
+               good.Categories.Add(category);
+               category.Goods.Add(good);
+               await _context.SaveChangesAsync();
+            
+               return _mapper.Map<GoodFullInfoDto>(good);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.AddGoodToCategoryAsync Good ERROR: {ex.Message}");
+                throw new ServiceAddException(ex.Message);
+            }
+        }
+
         public async Task DeleteGoodAsync(Guid goodId)
         {
             try
@@ -68,11 +106,12 @@ namespace BLL.Services.GoodManagement
         {
             try
             {
-                var categories = _mapper.Map<List<GoodShortInfoDto>>(await _context.Goods
+                var goods = _mapper.Map<List<GoodShortInfoDto>>(await _context.Goods
+                    .Include(g => g.Categories)
                     .Include(g => g.Seller)
                     .Include(g => g.GoodOptions)
                     .ToListAsync());
-                return categories;
+                return goods;
             }
             catch (Exception ex)
             {
@@ -93,10 +132,35 @@ namespace BLL.Services.GoodManagement
 
                 if(goodModel is null)
                 {
-                    throw new Exception("Wrong good");
+                    throw new ServiceEntityIsNullException("Wrong good");
                 }
                 var goodDto = _mapper.Map<GoodFullInfoDto>(goodModel);
                 return goodDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetGoodByIdAsync Good ERROR: {ex.Message}");
+                throw new ServiceGetByIdException(ex.Message);
+            }
+        }
+
+        public async Task<List<GoodShortInfoDto>> GetGoodsByCategoryAsync(Guid? categoryId)
+        {
+            try
+            {
+                if (categoryId == null)
+                {
+                    return _mapper.Map<List<GoodShortInfoDto>>(await _context
+                        .Goods
+                         .Include(g => g.Categories)
+                        .ToListAsync());
+                }
+                var goods = _mapper.Map<List<GoodShortInfoDto>>(await _context.Goods
+                    .Include(g => g.Categories)
+                    .Where(g => g.Categories.Any(c => c.Id == categoryId))
+                    .ToListAsync());
+
+                return goods;
             }
             catch (Exception ex)
             {

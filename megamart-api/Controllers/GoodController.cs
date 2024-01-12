@@ -20,12 +20,28 @@ namespace megamart_api.Controllers
             _logger = logger;
         }
 
-        [HttpGet("list")]
+ /*       [HttpGet("list")]
         public async Task<IActionResult> GetAllGoods()
         {
             try
             {
                 var allGoods = await _goodService.GetAllGoodsAsync();
+
+                return Ok(allGoods);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ENDPOINT.Good.GetAllGoods ERROR: {ex.Message}");
+                return BadRequest(ex);
+            }
+        }*/
+
+        [HttpGet("list")]
+        public async Task<IActionResult> GetAllGoodsByCategory([FromQuery]Guid? category)
+        {
+            try
+            {
+                var allGoods = await _goodService.GetGoodsByCategoryAsync(category);
 
                 return Ok(allGoods);
             }

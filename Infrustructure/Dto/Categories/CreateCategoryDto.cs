@@ -3,7 +3,8 @@
     public record CreateCategoryDto(
         string Name,
         string Description,
-        string Color,
+        string BackgroundColor,
+        string FontColor,
         string LogoUrl
     );
 }
