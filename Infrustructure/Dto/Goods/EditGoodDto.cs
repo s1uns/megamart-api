@@ -14,7 +14,7 @@ namespace Infrustructure.Dto.Goods
         string Description,
         decimal Price,
         string ImgUrl,
-        List<Guid> CategoryIds, 
+        List<Guid> Categories, 
         List<GoodOptionDto> GoodOptions
 
     );
