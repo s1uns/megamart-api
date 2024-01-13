@@ -148,19 +148,19 @@ namespace BLL.Services.GoodManagement
         {
             try
             {
-                if (categoryId == null)
-                {
-                    return _mapper.Map<List<GoodShortInfoDto>>(await _context
-                        .Goods
-                         .Include(g => g.Categories)
-                        .ToListAsync());
-                }
-                var goods = _mapper.Map<List<GoodShortInfoDto>>(await _context.Goods
+                var query = _context
+                    .Goods
                     .Include(g => g.Categories)
-                    .Where(g => g.Categories.Any(c => c.Id == categoryId))
-                    .ToListAsync());
+                    .AsQueryable();
 
-                return goods;
+                if (categoryId is not null)
+                {
+                    query = query.Where(g => g.Categories.Any(c => c.Id == categoryId));
+                }
+
+                var goods = await query.ToListAsync();
+
+                return _mapper.Map<List<GoodShortInfoDto>>(goods);
             }
             catch (Exception ex)
             {
