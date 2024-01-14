@@ -144,7 +144,7 @@ namespace BLL.Services.GoodManagement
             }
         }
 
-        public async Task<List<GoodShortInfoDto>> GetGoodsByCategoryAsync(Guid? categoryId)
+        public async Task<List<GoodShortInfoDto>> GetGoodsByCategoryAsync(Guid? categoryId, string sortBy, bool order)
         {
             try
             {
@@ -156,6 +156,21 @@ namespace BLL.Services.GoodManagement
                 if (categoryId is not null)
                 {
                     query = query.Where(g => g.Categories.Any(c => c.Id == categoryId));
+                }
+
+                switch (sortBy)
+                {
+                    case "rating":
+                        query = order ? query.OrderBy(g => g.Rating) : query.OrderByDescending(g => g.Rating); 
+                        break;
+
+                    case "price":
+                        query = order ? query.OrderBy(g => g.Price) : query.OrderByDescending(g => g.Price); 
+                        break;
+
+                    case "title":
+                        query = order ? query.OrderBy(g => g.Name) : query.OrderByDescending(g => g.Name); 
+                        break;
                 }
 
                 var goods = await query.ToListAsync();
