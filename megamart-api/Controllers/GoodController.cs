@@ -37,11 +37,11 @@ namespace megamart_api.Controllers
         }*/
 
         [HttpGet("list")]
-        public async Task<IActionResult> GetAllGoodsByCategory([FromQuery]Guid? category, [FromQuery] string sortBy, [FromQuery] bool order)
+        public async Task<IActionResult> GetAllGoodsByCategory([FromQuery]Guid? category, [FromQuery] string sortBy, [FromQuery] bool order, [FromQuery] string? search)
         {
             try
             {
-                var allGoods = await _goodService.GetGoodsByCategoryAsync(category, sortBy, order);
+                var allGoods = await _goodService.GetGoodsAsync(category, sortBy, order, search);
 
                 return Ok(allGoods);
             }

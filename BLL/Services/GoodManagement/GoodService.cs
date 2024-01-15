@@ -10,6 +10,7 @@ using Infrustructure.ErrorHandling.Services.GenericExceptions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace BLL.Services.GoodManagement
 {
@@ -144,7 +145,7 @@ namespace BLL.Services.GoodManagement
             }
         }
 
-        public async Task<List<GoodShortInfoDto>> GetGoodsByCategoryAsync(Guid? categoryId, string sortBy, bool order)
+        public async Task<List<GoodShortInfoDto>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search)
         {
             try
             {
@@ -152,6 +153,11 @@ namespace BLL.Services.GoodManagement
                     .Goods
                     .Include(g => g.Categories)
                     .AsQueryable();
+
+                if (search is not null)
+                {
+                    query = query.Where(g => g.Name.Contains(search));
+                }
 
                 if (categoryId is not null)
                 {
