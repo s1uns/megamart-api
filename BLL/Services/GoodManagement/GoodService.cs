@@ -5,6 +5,7 @@ using DAL.Repository.Interface;
 using Infrustructure.Dto.Categories;
 using Infrustructure.Dto.GoodOptions;
 using Infrustructure.Dto.Goods;
+using Infrustructure.Dto.Pagination;
 using Infrustructure.ErrorHandling.Services.GenericException;
 using Infrustructure.ErrorHandling.Services.GenericExceptions;
 using megamart_api.Context;
@@ -145,7 +146,7 @@ namespace BLL.Services.GoodManagement
             }
         }
 
-        public async Task<List<GoodShortInfoDto>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search)
+        public async Task<PageResponseDto<GoodShortInfoDto>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search, int page, int limit)
         {
             try
             {
@@ -179,9 +180,19 @@ namespace BLL.Services.GoodManagement
                         break;
                 }
 
-                var goods = await query.ToListAsync();
+                var goods = await query
+                    .Skip(page * limit)
+                    .Take(limit)
+                    .ToListAsync();
 
-                return _mapper.Map<List<GoodShortInfoDto>>(goods);
+                var data = _mapper.Map<List<GoodShortInfoDto>>(goods);
+                var totalPages = (_context.Goods.Count() + limit - 1) / limit;
+
+                return new PageResponseDto<GoodShortInfoDto>
+                {
+                    Data = data,
+                    TotalPages = totalPages
+                };
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Infrustructure.Dto.Categories;
 using Infrustructure.Dto.Goods;
+using Infrustructure.Dto.Pagination;
 
 namespace BLL.Services.GoodManagement.Interfaces
 {
@@ -10,7 +11,7 @@ namespace BLL.Services.GoodManagement.Interfaces
         Task<EditGoodDto> UpdateGoodAsync(EditGoodDto newGoodDto);
         Task<List<GoodShortInfoDto>> GetAllGoodsAsync();
         Task<GoodFullInfoDto> GetGoodByIdAsync(Guid goodId);
-        Task<List<GoodShortInfoDto>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search);
+        Task<PageResponseDto<GoodShortInfoDto>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search, int page, int limit);
         Task DeleteGoodAsync(Guid goodId);
         Task<GoodFullInfoDto> AddGoodToCategoryAsync(Guid goodId, Guid categoryId);
     }
