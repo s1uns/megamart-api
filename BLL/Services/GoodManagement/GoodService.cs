@@ -179,14 +179,17 @@ namespace BLL.Services.GoodManagement
                         query = order ? query.OrderBy(g => g.Name) : query.OrderByDescending(g => g.Name); 
                         break;
                 }
-
-                var goods = await query
-                    .Skip(page * limit)
-                    .Take(limit)
-                    .ToListAsync();
-
-                var data = _mapper.Map<List<GoodShortInfoDto>>(goods);
                 var totalPages = (query.Count() + limit - 1) / limit;
+
+                var c = query.Count();
+                if(query.Count() > page * limit)
+                {
+                    query = query
+                        .Skip(page * limit)
+                        .Take(limit);
+                }
+
+                var data = _mapper.Map<List<GoodShortInfoDto>>(await query.ToListAsync());
 
                 return new PageResponseDto<GoodShortInfoDto>
                 {
