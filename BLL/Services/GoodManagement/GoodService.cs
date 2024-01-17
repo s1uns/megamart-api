@@ -186,7 +186,7 @@ namespace BLL.Services.GoodManagement
                     .ToListAsync();
 
                 var data = _mapper.Map<List<GoodShortInfoDto>>(goods);
-                var totalPages = (_context.Goods.Count() + limit - 1) / limit;
+                var totalPages = (query.Count() + limit - 1) / limit;
 
                 return new PageResponseDto<GoodShortInfoDto>
                 {
