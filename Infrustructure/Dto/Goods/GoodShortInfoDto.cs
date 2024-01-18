@@ -1,4 +1,5 @@
 ﻿using Infrustructure.Dto.Categories;
+using Infrustructure.Dto.GoodOptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Infrustructure.Dto.Goods
         string ImgUrl, 
         string SellerName,
         int Rating,
+        List<GoodOptionDto> GoodOptions,
         List<Guid> Categories
     );
 }

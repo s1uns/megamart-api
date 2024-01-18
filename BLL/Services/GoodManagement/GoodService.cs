@@ -153,6 +153,8 @@ namespace BLL.Services.GoodManagement
                 var query = _context
                     .Goods
                     .Include(g => g.Categories)
+                    .Include(g => g.GoodOptions)
+                    .Include(g => g.Seller)
                     .AsQueryable();
 
                 if (search is not null)
