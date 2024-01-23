@@ -36,7 +36,7 @@ namespace megamart_api.Controllers
             }
         }*/
 
-        [HttpGet("list")]
+        [HttpGet()]
         public async Task<IActionResult> GetAllGoodsByCategory([FromQuery] string? search, [FromQuery] Guid? category, [FromQuery] string sortBy = "rating", [FromQuery] bool sortOrder = true, [FromQuery] int page = 1, [FromQuery] int limit = 5)
         {
             try

@@ -129,6 +129,7 @@ namespace BLL.Services.GoodManagement
                 var goodModel = await _context.Goods
                     .Where(g => g.Id == goodId)
                     .Include(g => g.Seller)
+                    .Include(g => g.Categories)
                     .Include(g => g.GoodOptions)
                     .FirstOrDefaultAsync();
 
