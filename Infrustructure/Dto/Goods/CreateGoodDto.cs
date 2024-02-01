@@ -8,7 +8,7 @@ namespace Infrustructure.Dto.Goods
         string Description, 
         decimal Price, 
         string ImgUrl,
-        List<Guid> CategoryIds/*, 
-        List<GoodOptionDto> GoodOptions*/
+        List<Guid> CategoryIds,
+        List<GoodOptionDto> GoodOptions
     );
 }

@@ -11,10 +11,11 @@ namespace Infrustructure.Dto.Goods
     public record EditGoodDto(
         Guid Id,
         string Name,
+        Guid SellerId, //DELETE LATER
         string Description,
         decimal Price,
         string ImgUrl,
-        List<Guid> Categories, 
+        List<Guid> CategoryIds, 
         List<GoodOptionDto> GoodOptions
 
     );
