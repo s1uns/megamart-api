@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infrustructure.ErrorHandling.Errors.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrustructure.ErrorHandling.Errors.Base.ServiceErrors
+namespace Infrustructure.ErrorHandling.Errors.ServiceErrors
 {
     public static class GoodServiceErrors
     {
