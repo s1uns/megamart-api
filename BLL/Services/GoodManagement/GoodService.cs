@@ -6,7 +6,7 @@ using DAL.Repository.Interface;
 using Infrustructure.Dto.Goods;
 using Infrustructure.Dto.Pagination;
 using Infrustructure.ErrorHandling.Errors.Base;
-using Infrustructure.ErrorHandling.Errors.Base.ServiceErrors;
+using Infrustructure.ErrorHandling.Errors.ServiceErrors;
 using Infrustructure.ErrorHandling.Services.GenericExceptions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
