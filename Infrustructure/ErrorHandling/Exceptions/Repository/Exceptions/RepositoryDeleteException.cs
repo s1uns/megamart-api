@@ -1,4 +1,4 @@
-﻿namespace Infrustructure.ErrorHandling.Repository.Exceptions
+﻿namespace Infrustructure.ErrorHandling.Exceptions.Repository.Exceptions
 {
     public class RepositoryDeleteException : Exception
     {

@@ -1,18 +1,17 @@
-﻿using Core.Models;
+﻿using Core.Result;
 using Infrustructure.Dto.Categories;
 using Infrustructure.Dto.Goods;
 using Infrustructure.Dto.Pagination;
+using Infrustructure.ErrorHandling.Errors.Base;
 
 namespace BLL.Services.GoodManagement.Interfaces
 {
     public interface IGoodService
     {
-        Task<CreateGoodDto> AddGoodAsync(CreateGoodDto goodDto);
-        Task<EditGoodDto> UpdateGoodAsync(EditGoodDto newGoodDto);
-        Task<List<GoodShortInfoDto>> GetAllGoodsAsync();
-        Task<GoodFullInfoDto> GetGoodByIdAsync(Guid goodId);
-        Task<PageResponseDto<GoodShortInfoDto>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search, int page, int limit);
-        Task DeleteGoodAsync(Guid goodId);
-        Task<GoodFullInfoDto> AddGoodToCategoryAsync(Guid goodId, Guid categoryId);
+        Task<Result<CreateGoodDto, Error>> AddGoodAsync(CreateGoodDto goodDto);
+        Task<Result<EditGoodDto, Error>> UpdateGoodAsync(EditGoodDto newGoodDto);
+        Task<Result<GoodFullInfoDto, Error>> GetGoodByIdAsync(Guid goodId);
+        Task<Result<PageResponseDto<GoodShortInfoDto>, Error>> GetGoodsAsync(Guid? categoryId, string sortBy, bool order, string search, int page, int limit);
+        Task<Result<bool, Error>> DeleteGoodAsync(Guid goodId);
     }
 }

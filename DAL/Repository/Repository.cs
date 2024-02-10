@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using DAL.Repository.Interface;
 using Infrustructure.ErrorHandling.Repository.Exceptions;
+using Infrustructure.ErrorHandling.Exceptions.Repository.Exceptions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

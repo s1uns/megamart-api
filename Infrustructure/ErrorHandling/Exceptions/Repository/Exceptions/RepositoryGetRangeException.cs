@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrustructure.ErrorHandling.Repository.Exceptions
+namespace Infrustructure.ErrorHandling.Exceptions.Repository.Exceptions
 {
     public class RepositoryGetRangeException : Exception
     {

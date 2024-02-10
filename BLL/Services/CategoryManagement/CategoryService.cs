@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using BLL.Services.CategoryManager.Interfaces;
 using Core.Models;
+using Core.Result;
 using DAL.Repository.Interface;
 using Infrustructure.Dto.Categories;
+using Infrustructure.ErrorHandling.Errors.Base;
+using Infrustructure.ErrorHandling.Errors.ServiceErrors;
 using Infrustructure.ErrorHandling.Services.GenericException;
 using Microsoft.Extensions.Logging;
 
@@ -20,7 +23,7 @@ namespace BLL.Services.CategoryManager
             _mapper = mapper;
         }
 
-        public async Task<CreateCategoryDto> AddAsync(CreateCategoryDto categoryDto)
+        public async Task<Result<CreateCategoryDto, Error>> AddAsync(CreateCategoryDto categoryDto)
         {
             try
             {
@@ -28,26 +31,28 @@ namespace BLL.Services.CategoryManager
                 await _repository.AddAsync(category);
                 return categoryDto;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError($"BLL.AddAsync Category ERROR: {ex.Message}");
-                throw new ServiceAddException(ex.Message);
+                return CategoryServiceErrors.AddCategoryError;
             }
         }
 
-        public async Task DeleteAsync(Guid categoryId)
+        public async Task<Result<bool, Error>> DeleteAsync(Guid categoryId)
         {
             try
             {
                 await _repository.DeleteAsync(categoryId);
+                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"BLL.DeleteAsync Category ERROR: {ex.Message}");
-                throw new ServiceDeleteException(ex.Message);
+                return CategoryServiceErrors.DeleteCategoryError;
             }
         }
 
-        public async Task<List<CategoryShortInfoDto>> GetAllAsync()
+        public async Task<Result<List<CategoryShortInfoDto>, Error>> GetAllAsync()
         {
             try
             {
@@ -57,11 +62,11 @@ namespace BLL.Services.CategoryManager
             catch (Exception ex)
             {
                 _logger.LogError($"BLL.GetAllAsync Category ERROR: {ex.Message}");
-                throw new ServiceGetAllException(ex.Message);
+                return CategoryServiceErrors.GetCategoriesError;
             }
         }
 
-        public async Task<CategoryFullInfoDto> GetByIdAsync(Guid categoryId)
+        public async Task<Result<CategoryFullInfoDto, Error>> GetByIdAsync(Guid categoryId)
         {
             try
             {
@@ -71,16 +76,16 @@ namespace BLL.Services.CategoryManager
             catch (Exception ex)
             {
                 _logger.LogError($"BLL.GetByIdAsync Category ERROR: {ex.Message}");
-                throw new ServiceGetByIdException(ex.Message);
+                return CategoryServiceErrors.GetCategoryError;
             }
         }
 
-        public async Task<EditCategoryDto> UpdateAsync(EditCategoryDto newCategoryDto)
+        public async Task<Result<EditCategoryDto, Error>> UpdateAsync(EditCategoryDto newCategoryDto)
         {
             try
             {
                 var newCategory = await _repository.GetByIdAsync(newCategoryDto.Id);
-                _mapper.Map<EditCategoryDto,Category>(newCategoryDto, newCategory);
+                _mapper.Map<Category>(newCategoryDto);
                 await _repository.UpdateAsync(newCategory);
                 return newCategoryDto;
             }

@@ -20,100 +20,48 @@ namespace megamart_api.Controllers
             _logger = logger;
         }
 
- /*       [HttpGet("list")]
-        public async Task<IActionResult> GetAllGoods()
-        {
-            try
-            {
-                var allGoods = await _goodService.GetAllGoodsAsync();
-
-                return Ok(allGoods);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"ENDPOINT.Good.GetAllGoods ERROR: {ex.Message}");
-                return BadRequest(ex);
-            }
-        }*/
-
         [HttpGet()]
         public async Task<IActionResult> GetAllGoodsByCategory([FromQuery] string? search, [FromQuery] Guid? category, [FromQuery] string sortBy = "rating", [FromQuery] bool sortOrder = true, [FromQuery] int page = 1, [FromQuery] int limit = 5)
         {
-            try
-            {
-                var allGoods = await _goodService.GetGoodsAsync(category, sortBy, sortOrder, search, page, limit);
+            var result = await _goodService.GetGoodsAsync(category, sortBy, sortOrder, search, page, limit);
 
-                return Ok(allGoods);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"ENDPOINT.Good.GetAllGoods ERROR: {ex.Message}");
-                return BadRequest(ex);
-            }
+            return this.CreateResponse(result);
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> AddGood([FromBody] CreateGoodDto goodDto)
         {
-            try
-            {
-                var result = await _goodService.AddGoodAsync(goodDto);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"ENDPOINT.Good.AddGood ERROR: {ex.Message}");
-                return BadRequest(ex);
-            }
+            var result = await _goodService.AddGoodAsync(goodDto);
+
+            return this.CreateResponse(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGood(Guid id)
         {
-            try
-            {
-                var good = await _goodService.GetGoodByIdAsync(id);
+            var result = await _goodService.GetGoodByIdAsync(id);
 
-                return Ok(good);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"ENDPOINT.Good.GetGood ERROR: {ex.Message}");
-                return BadRequest(ex);
-            }
+            return this.CreateResponse(result);
         }
 
         [HttpPost("update")]
         public async Task<IActionResult> UpdateGood([FromBody] EditGoodDto good)
         {
-            try
-            {
-                await _goodService.UpdateGoodAsync(good);
 
-                return Ok(good);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"ENDPOINT.Good.UpdateGood ERROR: {ex.Message}");
-                return BadRequest(ex);
-            }
+            var result = await _goodService.UpdateGoodAsync(good);
+
+            return this.CreateResponse(result);
+
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGood(Guid id)
         {
-            try
-            {
-                await _goodService.DeleteGoodAsync(id);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"ENDPOINT.Good.DeleteGood ERROR: {ex.Message}");
-                return BadRequest(ex);
-            }
+            var result = await _goodService.DeleteGoodAsync(id);
+
+            return this.CreateResponse(result);
         }
     }
 }
