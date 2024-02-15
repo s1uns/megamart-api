@@ -15,6 +15,12 @@ namespace megamart_api.BuildExtensions
                     {
                         Title = "MegaMart Api",
                         Version = "v1",
+                        Description = "MegaMart Web API",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Creator - Illia Teliuk",
+                            Url = new Uri("https://github.com/s1uns")
+                        }
                     });
                 setup.AddSecurityDefinition(
                     "Bearer",
