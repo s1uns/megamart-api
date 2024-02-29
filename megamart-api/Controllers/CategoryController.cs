@@ -20,7 +20,14 @@ namespace megamart_api.Controllers
             _logger = logger;
         }
 
-
+        /// <summary>
+        /// Return the list of all categories
+        /// </summary>
+        /// <remarks>
+        /// If the operation is successful, it will return a List of CategoryShortInfoDto.
+        /// If there is a bad request, it will return an Error.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("list")]
         public async Task<IActionResult> GetAllCategories()
         {

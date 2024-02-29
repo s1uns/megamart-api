@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -8,7 +9,7 @@ namespace megamart_api.BuildExtensions
     {
         internal static void AddSetSecurity(this IServiceCollection services, IConfiguration config)
         {
-            var securityKey = config.GetRequiredSection("SecurityKey").Value;
+            var securityKey = config.GetRequiredSection("JWT")["Secret"];
             var key = Encoding.ASCII.GetBytes(securityKey);
 
             services.AddAuthentication(option =>
@@ -23,8 +24,10 @@ namespace megamart_api.BuildExtensions
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = config.GetRequiredSection("JWT")["ValidIssuer"],
+                        ValidAudience= config.GetRequiredSection("JWT")["ValidAudience"],
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero,
                     };

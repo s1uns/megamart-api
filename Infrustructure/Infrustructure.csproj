@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\Account\" />
     <Folder Include="ErrorHandling\Exceptions\Services\Category\" />
     <Folder Include="ErrorHandling\Exceptions\Services\Customer\" />
     <Folder Include="ErrorHandling\Exceptions\Services\DeliveryAddress\" />
