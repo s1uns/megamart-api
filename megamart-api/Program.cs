@@ -1,4 +1,5 @@
 
+using DAL.BuildExtensions;
 using megamart_api.BuildExtensions;
 using megamart_api.Context;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,10 @@ try
     builder.Host.UseSerilog();
 
 
-    string connection = builder.Configuration.GetConnectionString("MySql") ?? string.Empty;
 
 
 
 
-    builder.Services.AddDbContext<MegamartContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
     builder.Services.AddControllers();
     builder.Services.AddSwaggerGen();
     builder.Services.AddEndpointsApiExplorer();
@@ -36,6 +35,8 @@ try
     builder.Services.AddSetCors();
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
+    builder.Services.AddDbSetup(builder.Configuration);
+
 
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
