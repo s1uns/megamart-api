@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace Core.Models
 {
-    public class Seller : BaseEntity
+    public class Seller : User
     {        
         public string Name { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Site { get; set; } = string.Empty;
-        public string LogoUrl { get; set; } = string.Empty;
+        public string WebsiteUrl { get; set; } = string.Empty;
         public ICollection<Good> Goods { get; set; }
-        public DateTime CreatedAt { get; set; }
         public bool IsVerified { get; set; }
     }
 }
