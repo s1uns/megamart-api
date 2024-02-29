@@ -6,6 +6,8 @@ using DAL.Repository.Interface;
 using DAL.Repository;
 using BLL.Services.GoodManagement.Interfaces;
 using BLL.Services.GoodManagement;
+using BLL.Services.IdentityManagement.Interfaces;
+using BLL.Services.IdentityManagement;
 
 namespace megamart_api.BuildExtensions
 {
@@ -17,6 +19,8 @@ namespace megamart_api.BuildExtensions
 */          services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IGoodService, GoodService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IAccountService, AccountService>();
         }
     }
 }
