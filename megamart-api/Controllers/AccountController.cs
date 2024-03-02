@@ -64,5 +64,19 @@ namespace megamart_api.Controllers
             var result = await _accountService.SignInAsync(request);
             return this.CreateResponse(result);
         }
+
+        /// <summary>
+        /// Resets user's password.
+        /// </summary>
+        /// <param name="request">The request to reset user's password</param>        
+        /// If the operation is successful, it will return a SignInResultDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
+        {
+            var result = await _accountService.ResetPasswordAsync(request);
+            return this.CreateResponse(result);
+        }
     }
 }
