@@ -12,8 +12,6 @@ namespace megamart_api.Context
 
         public required DbSet<Category> Categories { get; set; }
         public required DbSet<Customer> Customers { get; set; }
-        public required DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
-        public required DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public required DbSet<Good> Goods { get; set; }
         public required DbSet<GoodOption> GoodOptions { get; set; }
         public required DbSet<Order> Orders { get; set; }
@@ -26,8 +24,6 @@ namespace megamart_api.Context
         {
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CustomerConfiguration());
-            builder.ApplyConfiguration(new DeliveryAddressConfiguration());
-            builder.ApplyConfiguration(new DeliveryMethodConfiguration());
             builder.ApplyConfiguration(new GoodConfiguration());
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new OrderPositionConfiguration());

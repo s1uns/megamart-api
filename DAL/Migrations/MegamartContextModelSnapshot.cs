@@ -39,7 +39,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("95abf3d5-08e8-45d7-bfdb-1df39b39ede3");
+                        .HasDefaultValue("2bb6f915-5225-404f-8e33-19968796eb25");
 
                     b.Property<string>("BackgroundColor")
                         .IsRequired()
@@ -79,12 +79,12 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("a21ab08d-b81b-48a1-ad67-30f06aab353f");
+                        .HasDefaultValue("9c394084-537c-4d87-96d9-5f0047585970");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 2, 29, 19, 27, 12, 393, DateTimeKind.Utc).AddTicks(828));
+                        .HasDefaultValue(new DateTime(2024, 3, 2, 19, 20, 41, 601, DateTimeKind.Utc).AddTicks(6455));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -113,76 +113,12 @@ namespace DAL.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Core.Models.DeliveryAddress", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(255)")
-                        .HasDefaultValue("19b9ff83-5019-4275-8006-8f870699b771");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("EntryWay")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FlatNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HouseNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Region")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeliveryAddresses");
-                });
-
-            modelBuilder.Entity("Core.Models.DeliveryMethod", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(255)")
-                        .HasDefaultValue("760821fd-9c9f-4594-8757-8fd7d361b301");
-
-                    b.Property<string>("LogoUrl")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("longtext")
-                        .HasDefaultValue("https://w7.pngwing.com/pngs/7/387/png-transparent-delivery-computer-icons-timely-delivery-miscellaneous-angle-text.png");
-
-                    b.Property<int>("MinimalPrice")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeliveryMethods");
-                });
-
             modelBuilder.Entity("Core.Models.Good", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("0dba3dc8-75a1-4e1a-a5a6-13332eab6154");
+                        .HasDefaultValue("87f3df1f-fd2d-4a13-b071-a9a483410feb");
 
                     b.Property<int>("AvailabilityStatus")
                         .HasColumnType("int");
@@ -245,22 +181,14 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("84093755-0fb0-470a-8ecf-9d5d8b0e98b2");
+                        .HasDefaultValue("e1d9eca5-7a04-4df3-8dac-218dc346e4b4");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 2, 29, 19, 27, 12, 394, DateTimeKind.Utc).AddTicks(373));
+                        .HasDefaultValue(new DateTime(2024, 3, 2, 19, 20, 41, 602, DateTimeKind.Utc).AddTicks(1625));
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("DeliveryAddressId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("DeliveryMethodId")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
@@ -276,10 +204,6 @@ namespace DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("DeliveryAddressId");
-
-                    b.HasIndex("DeliveryMethodId");
-
                     b.ToTable("Orders");
                 });
 
@@ -288,7 +212,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("ab305d1d-ec25-494d-8fb8-ef9c9c77f262");
+                        .HasDefaultValue("338b8459-1ee4-4e67-bee1-77ab924516fc");
 
                     b.Property<string>("GoodId")
                         .IsRequired()
@@ -318,7 +242,7 @@ namespace DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)")
-                        .HasDefaultValue("a46870ce-7283-4ee3-a3fc-fa8aa9717007");
+                        .HasDefaultValue("afa40f47-d8d6-4df2-87c2-6616c29f36b8");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -592,23 +516,7 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Models.DeliveryAddress", "DeliveryAddress")
-                        .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.DeliveryMethod", "DeliveryMethod")
-                        .WithMany()
-                        .HasForeignKey("DeliveryMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
-
-                    b.Navigation("DeliveryAddress");
-
-                    b.Navigation("DeliveryMethod");
                 });
 
             modelBuilder.Entity("Core.Models.OrderPosition", b =>
