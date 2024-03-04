@@ -5,6 +5,7 @@ using System.Text;
 
 namespace megamart_api.BuildExtensions
 {
+    
     internal static class SecurityInjection
     {
         internal static void AddSetSecurity(this IServiceCollection services, IConfiguration config)
@@ -24,10 +25,10 @@ namespace megamart_api.BuildExtensions
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidIssuer = config.GetRequiredSection("JWT")["ValidIssuer"],
-                        ValidAudience= config.GetRequiredSection("JWT")["ValidAudience"],
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+/*                        ValidIssuer = config.GetRequiredSection("JWT")["ValidIssuer"],
+                        ValidAudience= config.GetRequiredSection("JWT")["ValidAudience"],*/
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero,
                     };

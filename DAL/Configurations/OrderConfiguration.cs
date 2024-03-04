@@ -33,12 +33,6 @@ namespace DAL.Configurations
                 .HasForeignKey(oP => oP.OrderId);
 
             modelBuilder
-                .HasOne(o => o.DeliveryAddress);
-
-            modelBuilder
-                .HasOne(o => o.DeliveryMethod);
-
-            modelBuilder
                 .Property(o => o.CreatedAt)
                 .HasDefaultValue(DateTime.UtcNow);
 

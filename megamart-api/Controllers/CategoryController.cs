@@ -13,11 +13,9 @@ namespace megamart_api.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        private readonly ILogger<CategoryController> _logger;
-        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _logger = logger;
         }
 
         /// <summary>

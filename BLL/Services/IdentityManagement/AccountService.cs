@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Infrustructure.ErrorHandling.Errors.ServiceErrors;
 using Microsoft.Extensions.Logging;
 using Core.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Infrustructure.ErrorHandling.Exceptions.Services.Account;
+using Microsoft.AspNetCore.Http;
+using Infrustructure.Extensions;
 
 namespace BLL.Services.IdentityManagement
 {
@@ -20,15 +21,17 @@ namespace BLL.Services.IdentityManagement
         private readonly ITokenGenerator _tokenGenerator;
         private readonly MegamartContext _context;
         private readonly ILogger<AccountService> _logger;
+        private readonly IHttpContextAccessor _contextAccessor;
 
 
-        public AccountService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenGenerator tokenGenerator, MegamartContext context, ILogger<AccountService> logger)
+        public AccountService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenGenerator tokenGenerator, MegamartContext context, ILogger<AccountService> logger, IHttpContextAccessor contextAccessor)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _tokenGenerator = tokenGenerator;
             _context = context;
             _logger = logger;
+            _contextAccessor = contextAccessor;
         }
 
         public async Task<Result<IdentityUser, Error>> CreateIdentityUserAsync(CredentialsDto credentials, Roles role)
@@ -181,6 +184,57 @@ namespace BLL.Services.IdentityManagement
             }
         }
 
+        public async Task<Result<bool, Error>> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            try
+            {
+                var vaildUserEmail = _contextAccessor.TryGetUserEmail(out string userEmail);
+                if (vaildUserEmail is false)
+                {
+                    throw new InvalidUserException("wrong user");
+                }
+
+                var identityUser = await _userManager.FindByEmailAsync(userEmail);
+                var isCredentialsValid = await _userManager.CheckPasswordAsync(identityUser, resetPasswordDto.OldPassword);
+
+                if (!isCredentialsValid)
+                {
+                    throw new WrongOldPasswordException("wrong old password");
+                }
+
+                if (isCredentialsValid)
+                {
+                    var isNewPasswordValid = await _userManager.ValidateAsync(resetPasswordDto.NewPassword);
+
+                    if (!isNewPasswordValid._isSuccess)
+                    {
+                        return IdentityServiceErrors.ResetPasswordError(isNewPasswordValid._error.Message);
+                    }
+
+                    await _userManager.RemovePasswordAsync(identityUser);
+                    await _userManager.AddPasswordAsync(identityUser, resetPasswordDto.NewPassword);
+                }
+
+                return true;
+            }
+            catch (WrongOldPasswordException ex)
+            {
+                _logger.LogError($"BLL.ResetPasswordAsync Reset Password ERROR: {ex.Message}");
+                return IdentityServiceErrors.ResetPasswordError(ex.Message);
+            }
+            catch (InvalidUserException ex)
+            {
+                _logger.LogError($"BLL.ResetPasswordAsync Invalid User ERROR: {ex.Message}");
+                return IdentityServiceErrors.ResetPasswordError(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.ResetPasswordAsync ERROR: {ex.Message}");
+                return IdentityServiceErrors.ResetPasswordError("something went wrong");
+
+            }
+        }
+
         private async Task AssureRoleCreatedAsync(string role)
         {
             if (await _roleManager.RoleExistsAsync(role))
@@ -190,5 +244,7 @@ namespace BLL.Services.IdentityManagement
 
             await _roleManager.CreateAsync(new IdentityRole(role));
         }
+
+
     }
 }

@@ -11,13 +11,10 @@ namespace megamart_api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly ILogger<AccountController> _logger;
 
-
-        public AccountController(IAccountService accountService, ILogger<AccountController> logger)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-            _logger = logger;
 
         }
 
@@ -62,6 +59,20 @@ namespace megamart_api.Controllers
         public async Task<IActionResult> SignIn([FromBody] CredentialsDto request)
         {
             var result = await _accountService.SignInAsync(request);
+            return this.CreateResponse(result);
+        }
+
+        /// <summary>
+        /// Resets user's password.
+        /// </summary>
+        /// <param name="request">The request to reset user's password</param>        
+        /// If the operation is successful, it will return a SignInResultDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
+        {
+            var result = await _accountService.ResetPasswordAsync(request);
             return this.CreateResponse(result);
         }
     }

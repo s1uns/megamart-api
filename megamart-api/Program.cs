@@ -30,12 +30,14 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSetSwagger();
+    builder.Services.AddHttpContextAccessor();
     builder.Services.AddServices();
     builder.Services.AddSetSecurity(builder.Configuration);
     builder.Services.AddSetCors();
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
     builder.Services.AddDbSetup(builder.Configuration);
+
 
 
 

@@ -3,6 +3,8 @@ using System.Reflection;
 
 namespace megamart_api.BuildExtensions
 {
+    
+    
     internal static class SwaggerInjection
     {
         internal static void AddSetSwagger(this IServiceCollection services)
