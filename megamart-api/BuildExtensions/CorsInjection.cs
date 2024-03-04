@@ -1,5 +1,6 @@
 ﻿namespace megamart_api.BuildExtensions
 {
+
     internal static class CorsInjection
     {
         internal static string PolicyName => "policy";

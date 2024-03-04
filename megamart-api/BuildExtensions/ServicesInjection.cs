@@ -8,6 +8,8 @@ using BLL.Services.GoodManagement.Interfaces;
 using BLL.Services.GoodManagement;
 using BLL.Services.IdentityManagement.Interfaces;
 using BLL.Services.IdentityManagement;
+using BLL.Services.ProfileManagement.Interface;
+using BLL.Services.ProfileManagement;
 
 namespace megamart_api.BuildExtensions
 {
@@ -15,12 +17,12 @@ namespace megamart_api.BuildExtensions
     {
         internal static void AddServices(this IServiceCollection services)
         {
-/*            services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-*/          services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IGoodService, GoodService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IGoodService, GoodService>();
         }
     }
 }
