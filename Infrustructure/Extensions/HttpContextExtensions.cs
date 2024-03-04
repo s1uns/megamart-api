@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 
-namespace BLL.Extensions
+namespace Infrustructure.Extensions
 {
     public static class HttpContextExtensions
     {
