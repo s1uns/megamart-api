@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
     <Compile Remove="Services\Implementations\**" />
     <Compile Remove="Services\Interfaces\**" />
+    <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Services\Implementations\**" />
     <EmbeddedResource Remove="Services\Interfaces\**" />
+    <None Remove="Models\**" />
     <None Remove="Services\Implementations\**" />
     <None Remove="Services\Interfaces\**" />
   </ItemGroup>
@@ -19,10 +22,6 @@
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Infrustructure\Infrustructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Authentication\" />
   </ItemGroup>
 
   <ItemGroup>
