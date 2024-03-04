@@ -8,10 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Infrustructure.ErrorHandling.Errors.ServiceErrors;
 using Microsoft.Extensions.Logging;
 using Core.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Infrustructure.ErrorHandling.Exceptions.Services.Account;
 using Microsoft.AspNetCore.Http;
-using BLL.Extensions;
 using Infrustructure.Extensions;
 
 namespace BLL.Services.IdentityManagement

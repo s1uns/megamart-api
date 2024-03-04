@@ -12,12 +12,10 @@ namespace megamart_api.Controllers
     public class GoodController : ControllerBase
     {
         private readonly IGoodService _goodService;
-        private readonly ILogger<GoodController> _logger;
 
-        public GoodController(IGoodService goodService, ILogger<GoodController> logger)
+        public GoodController(IGoodService goodService)
         {
             _goodService = goodService;
-            _logger = logger;
         }
 
         [HttpGet()]
