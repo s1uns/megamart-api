@@ -10,7 +10,8 @@ namespace Core.Enums
     {
         Available,
         OutOfStock,
-        Discontinued
+        Discontinued,
+        Deleted
     }
 
 }

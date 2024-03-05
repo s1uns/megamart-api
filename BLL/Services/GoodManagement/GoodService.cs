@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Services.GoodManagement.Interfaces;
+using Core.Enums;
 using Core.Models;
 using Core.Result;
 using DAL.Repository.Interface;
@@ -8,7 +9,9 @@ using Infrustructure.Dto.Pagination;
 using Infrustructure.ErrorHandling.Errors.Base;
 using Infrustructure.ErrorHandling.Errors.ServiceErrors;
 using Infrustructure.ErrorHandling.Services.GenericExceptions;
+using Infrustructure.Extensions;
 using megamart_api.Context;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -22,26 +25,36 @@ namespace BLL.Services.GoodManagement
         private readonly IRepository<GoodOption> _optionsRepository;
         private readonly IMapper _mapper;
         private readonly MegamartContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public GoodService(IRepository<Good> repository, ILogger<GoodService> logger, IRepository<GoodOption> optionRepository, IMapper mapper, MegamartContext context)
+        public GoodService(IRepository<Good> repository, ILogger<GoodService> logger, IRepository<GoodOption> optionRepository, IMapper mapper, MegamartContext context, IHttpContextAccessor contextAccessor)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
             _optionsRepository = optionRepository;
             _context = context;
+            _contextAccessor = contextAccessor;
         }
 
         public async Task<Result<CreateGoodDto, Error>> AddGoodAsync(CreateGoodDto goodDto)
         {
             try
             {
-                //TODO: for authorized seller add getting his id
-                var entity = _mapper.Map<Good>(goodDto);
-                entity.SellerId = Guid.Parse("11bbe5ad-3ea8-4fd3-b87a-b16c823d250d");
-                entity.Rating = 0;
-                await _repository.AddAsync(entity);
-                entity.Categories = await _context.Categories
+                var isUserValid = _contextAccessor.TryGetUserId(out Guid userId);
+
+                if (!isUserValid)
+                {
+                    return UserErrors.InvalidUserId;
+                }
+
+                var good = _mapper.Map<Good>(goodDto);
+                good.SellerId = userId;
+                good.CreationStatus = GoodCreationStatus.Inspecting;
+                good.AvailabilityStatus = GoodAvailabilityStatus.Available;
+                good.Rating = 0;
+                await _repository.AddAsync(good);
+                good.Categories = await _context.Categories
                     .Where(c => goodDto.CategoryIds
                     .Contains(c.Id))
                     .ToListAsync();
@@ -58,6 +71,19 @@ namespace BLL.Services.GoodManagement
         {
             try
             {
+                var isUserValid = _contextAccessor.TryGetUserId(out Guid userId);
+
+                if (!isUserValid)
+                {
+                    return UserErrors.InvalidUserId;
+                }
+                var newGood = await _repository.GetByIdAsync(goodId);
+
+                if (newGood.SellerId != userId)
+                {
+                    return GoodServiceErrors.WrongSellerError;
+                }
+
                 await _repository.DeleteAsync(goodId);
                 return true;
             }
@@ -158,9 +184,15 @@ namespace BLL.Services.GoodManagement
         {
             try
             {
+                var isUserValid = _contextAccessor.TryGetUserId(out Guid userId);
+
+                if(!isUserValid)
+                {
+                    return UserErrors.InvalidUserId;
+                }
                 var newGood = await _repository.GetByIdAsync(newGoodDto.Id);
 
-                if (newGood.SellerId != newGoodDto.SellerId)
+                if (newGood.SellerId != userId)
                 {
                     return GoodServiceErrors.WrongSellerError;
                 }

@@ -1,7 +1,9 @@
 ﻿using BLL.Services.GoodManagement.Interfaces;
+using Core.Enums;
 using Core.Models;
 using Infrustructure.Dto.Goods;
 using Infrustructure.Dto.Goods;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +29,7 @@ namespace megamart_api.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = nameof(Roles.Seller))]
         public async Task<IActionResult> AddGood([FromBody] CreateGoodDto goodDto)
         {
 
@@ -44,6 +47,7 @@ namespace megamart_api.Controllers
         }
 
         [HttpPost("update")]
+        [Authorize(Roles = nameof(Roles.Seller))]
         public async Task<IActionResult> UpdateGood([FromBody] EditGoodDto good)
         {
 
@@ -54,6 +58,7 @@ namespace megamart_api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = nameof(Roles.Seller))]
         public async Task<IActionResult> DeleteGood(Guid id)
         {
 

@@ -8,10 +8,8 @@ namespace Core.Enums
 {
     public enum GoodCreationStatus
     {
-        JustCreated,
         Inspecting,
         Declined,
-        Approved,
-        Published
+        Approved
     }
 }

@@ -9,6 +9,6 @@ namespace Infrustructure.Dto.Goods
         decimal Price, 
         string ImgUrl,
         List<Guid> CategoryIds,
-        List<GoodOptionDto> GoodOptions
+        List<AddGoodOptionDto> GoodOptions
     );
 }
