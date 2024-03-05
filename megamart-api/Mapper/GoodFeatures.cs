@@ -13,13 +13,14 @@ namespace megamart_api.Mapper
             CreateMap<CreateGoodDto, Good>()
                 .ForMember(g => g.GoodOptions, otp => otp.MapFrom(src => src.GoodOptions));
 
-            CreateMap<EditGoodDto, Good>();
+            CreateMap<EditGoodDto, Good>()
+                .ForMember(g => g.GoodOptions, otp => otp.MapFrom(src => src.GoodOptions))
+                .ForMember(g => g.Categories, otp => otp.Ignore());
 
             CreateMap<Good, GoodShortInfoDto>()
                 .ForMember(g => g.SellerName, otp => otp.MapFrom(src => src.Seller.Name))
                 .ForMember(g => g.Categories, otp => otp.MapFrom(src => src.Categories));
-/*                .ForMember(g => g.GoodOptions, otp => otp.MapFrom(src => src.GoodOptions));
-*/
+
             CreateMap<Good, GoodFullInfoDto>()
                 .ForMember(g => g.SellerName, otp => otp.MapFrom(src => src.Seller.Name))
                 .ForMember(g => g.Categories, otp => otp.MapFrom(src => src.Categories))

@@ -37,7 +37,7 @@ namespace BLL.Services.GoodManagement
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<Result<CreateGoodDto, Error>> AddGoodAsync(CreateGoodDto goodDto)
+        public async Task<Result<GoodFullInfoDto, Error>> AddGoodAsync(CreateGoodDto goodDto)
         {
             try
             {
@@ -53,12 +53,14 @@ namespace BLL.Services.GoodManagement
                 good.CreationStatus = GoodCreationStatus.Inspecting;
                 good.AvailabilityStatus = GoodAvailabilityStatus.Available;
                 good.Rating = 0;
-                await _repository.AddAsync(good);
+                await _context.AddAsync(good);
                 good.Categories = await _context.Categories
                     .Where(c => goodDto.CategoryIds
                     .Contains(c.Id))
                     .ToListAsync();
-                return goodDto;
+
+                await _context.SaveChangesAsync();
+                return _mapper.Map<GoodFullInfoDto>(good);
             }
             catch (Exception ex)
             {
@@ -180,7 +182,7 @@ namespace BLL.Services.GoodManagement
             }
         }
 
-        public async Task<Result<EditGoodDto, Error>> UpdateGoodAsync(EditGoodDto newGoodDto)
+        public async Task<Result<GoodFullInfoDto, Error>> UpdateGoodAsync(EditGoodDto newGoodDto)
         {
             try
             {
@@ -197,7 +199,7 @@ namespace BLL.Services.GoodManagement
                     return GoodServiceErrors.WrongSellerError;
                 }
 
-                newGood = _mapper.Map<Good>(newGoodDto);
+                _mapper.Map(newGoodDto, newGood);
 
                 await _context.GoodOptions.AsQueryable().Where(oG => oG.GoodId == newGoodDto.Id).ForEachAsync(async (oG) =>
                 {
@@ -214,8 +216,13 @@ namespace BLL.Services.GoodManagement
                         await _optionsRepository.AddAsync(new GoodOption { GoodId = newGoodDto.Id, OptionName = oG.OptionName });
                     }
                 });
+
+                newGood.Categories = await _context.Categories
+                    .Where(c => newGoodDto.CategoryIds
+                    .Contains(c.Id))
+                    .ToListAsync();
                 await _context.SaveChangesAsync();
-                return newGoodDto;
+                return _mapper.Map<GoodFullInfoDto>(newGood);
             }
             catch (Exception ex)
             {
