@@ -92,7 +92,7 @@ namespace BLL.Services.ProfileManagement
 
                 if (isIdValid is false)
                 {
-                    return ProfileServiceErrors.InvalidUserId;
+                    return UserErrors.InvalidUserId;
                 }
 
                 var customer = await _context
@@ -123,7 +123,7 @@ namespace BLL.Services.ProfileManagement
 
                 if (isIdValid is false)
                 {
-                    return ProfileServiceErrors.InvalidUserId;
+                    return UserErrors.InvalidUserId;
                 }
 
                 var seller = await _context
@@ -154,7 +154,7 @@ namespace BLL.Services.ProfileManagement
 
                 if (isIdValid is false)
                 {
-                    return ProfileServiceErrors.InvalidUserId;
+                    return UserErrors.InvalidUserId;
                 }
 
                 var customer = await _context
@@ -187,7 +187,7 @@ namespace BLL.Services.ProfileManagement
 
                 if (isIdValid is false)
                 {
-                    return ProfileServiceErrors.InvalidUserId;
+                    return UserErrors.InvalidUserId;
                 }
 
                 var seller = await _context

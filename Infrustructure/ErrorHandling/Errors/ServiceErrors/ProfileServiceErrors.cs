@@ -4,7 +4,6 @@ namespace Infrustructure.ErrorHandling.Errors.ServiceErrors
 {
     public static class ProfileServiceErrors
     {
-        public static Error InvalidUserId = new Error("Invalid User Id Error", "User's id is invalid");
         public static Error UserNotFoundError = new Error("User Not Found Error", "The user is not found");
         public static Error GetCustomerProfileError = new Error("Get Customer's Profile Error", "Couldn't get the customer's profile");
         public static Error GetSellerProfileError = new Error("Get Seller's Profile Error", "Couldn't get the seller's profile");
