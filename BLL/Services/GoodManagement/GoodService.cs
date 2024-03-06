@@ -6,6 +6,7 @@ using Core.Result;
 using DAL.Repository.Interface;
 using Infrustructure.Dto.Goods;
 using Infrustructure.Dto.Pagination;
+using Infrustructure.Dto.UserProfile;
 using Infrustructure.ErrorHandling.Errors.Base;
 using Infrustructure.ErrorHandling.Errors.ServiceErrors;
 using Infrustructure.ErrorHandling.Services.GenericExceptions;
@@ -179,6 +180,29 @@ namespace BLL.Services.GoodManagement
             {
                 _logger.LogError($"BLL.GetGoodByIdAsync Good ERROR: {ex.Message}");
                 return GoodServiceErrors.GetGoodsError;
+            }
+        }
+
+        public async Task<Result<GoodsSellerInfoDto, Error>> GetSellerByGoodIdAsync(Guid goodId)
+        {
+            try
+            {
+                var good = await _context
+                    .Goods
+                    .Include(g => g.Seller)
+                    .FirstOrDefaultAsync(g => g.Id == goodId);
+
+                if(good is null)
+                {
+                    return GoodServiceErrors.GetGoodError;
+                }
+
+                return _mapper.Map<GoodsSellerInfoDto>(good.Seller);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"BLL.GetSellerByGoodIdAsync Good ERROR: {ex.Message}");
+                return GoodServiceErrors.GetSellerInfoError;
             }
         }
 

@@ -15,5 +15,6 @@ namespace Infrustructure.ErrorHandling.Errors.ServiceErrors
         public static readonly Error GetGoodsError = new Error("Get All Goods Error", "Failed to get the goods");
         public static readonly Error GetGoodError = new Error("Get Good Error", "Failed to get the good");
         public static readonly Error WrongSellerError = new Error("Wrong Seller Error", "You are not the seller of this good");
+        public static readonly Error GetSellerInfoError = new Error("Get Seller Info Error", "Couldn't get information about the seller of this good.");
     }
 }

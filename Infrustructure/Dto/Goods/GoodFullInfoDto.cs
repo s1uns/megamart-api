@@ -19,7 +19,9 @@ namespace Infrustructure.Dto.Goods
         List<Guid> Categories,
         GoodCreationStatus CreationStatus,
         GoodAvailabilityStatus AvailabilityStatus,
+        Guid SellerId,
         string SellerName,
+        string SellerProfilePicUrl,
         int Rating
     );
 }

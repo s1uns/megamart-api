@@ -19,6 +19,11 @@ namespace megamart_api.Mapper
 
             CreateMap<UpdateSellerProfileDto, Seller>();
             CreateMap<UpdateCustomerProfileDto, Customer>();
+
+            CreateMap<Seller, GoodsSellerInfoDto>()
+                .ForCtorParam(nameof(GoodsSellerInfoDto.SellerId), otp => otp.MapFrom(src => src.Id))
+                .ForCtorParam(nameof(GoodsSellerInfoDto.SellerName), otp => otp.MapFrom(src => src.Name))
+                .ForCtorParam(nameof(GoodsSellerInfoDto.SellerPicUrl), otp => otp.MapFrom(src => src.ProfilePicUrl));
         }
     }
 }

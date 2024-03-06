@@ -66,5 +66,14 @@ namespace megamart_api.Controllers
 
             return this.CreateResponse(result);
         }
+
+        [HttpGet("{id}/seller-info")]
+        public async Task<IActionResult> GetSellerByGood(Guid id)
+        {
+
+            var result = await _goodService.GetSellerByGoodIdAsync(id);
+
+            return this.CreateResponse(result);
+        }
     }
 }
