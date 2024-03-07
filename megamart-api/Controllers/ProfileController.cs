@@ -27,7 +27,7 @@ namespace megamart_api.Controllers
         /// If the operation is successful, it will return a CustomerProfileDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("customers/{id}")]
+        [HttpGet("customers/{id}")]
         public async Task<IActionResult> GetCustomerProfile(Guid id)
         {
             var result = await _profileService.GetCustomerProfileAsync(id);
@@ -43,7 +43,7 @@ namespace megamart_api.Controllers
         /// If the operation is successful, it will return a SellerProfileDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("sellers/{id}")]
+        [HttpGet("sellers/{id}")]
         public async Task<IActionResult> GetSellerProfile(Guid id)
         {
             var result = await _profileService.GetSellerProfileAsync(id);
@@ -58,7 +58,7 @@ namespace megamart_api.Controllers
         /// If the operation is successful, it will return a CustomerProfileDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("customers/me")]
+        [HttpGet("customers/me")]
         [Authorize(Roles = nameof(Roles.Customer))]
         public async Task<IActionResult> GetOwnCustomerProfile()
         {
@@ -74,7 +74,7 @@ namespace megamart_api.Controllers
         /// If the operation is successful, it will return a SellerProfileDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("sellers/me")]
+        [HttpGet("sellers/me")]
         [Authorize(Roles = nameof(Roles.Seller))]
         public async Task<IActionResult> GetOwnSellerProfile()
         {
