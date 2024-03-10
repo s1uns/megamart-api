@@ -53,7 +53,7 @@ namespace BLL.Services.GoodManagement
                 good.SellerId = userId;
                 good.CreationStatus = GoodCreationStatus.Inspecting;
                 good.AvailabilityStatus = GoodAvailabilityStatus.Available;
-                good.Rating = 0;
+                good.Rating = 0f;
                 await _context.AddAsync(good);
                 good.Categories = await _context.Categories
                     .Where(c => goodDto.CategoryIds

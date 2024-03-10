@@ -10,8 +10,8 @@ namespace Infrustructure.Extensions
         public static bool TryGetUserId(this IHttpContextAccessor accessor, out Guid userId)
         {
             return accessor.HttpContext.TryGetUserId(out userId);
-        }
-
+        }       
+        
         public static bool TryGetUserId(this HttpContext? context, out Guid userId)
         {
             var identityName = context?.User?.Claims?.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -51,6 +51,16 @@ namespace Infrustructure.Extensions
             }
 
             throw new IdentityEmailNotFoundException("Couldn't get identity's email");
+        }
+
+        public static bool IsUserAuthenticated(this IHttpContextAccessor accessor)
+        {
+            return accessor.HttpContext.IsUserAuthenticated();
+        }
+
+        public static bool IsUserAuthenticated(this HttpContext? context)
+        {
+            return context.User.Identity.IsAuthenticated;
         }
     }
 }
