@@ -22,6 +22,6 @@ namespace Infrustructure.Dto.Goods
         Guid SellerId,
         string SellerName,
         string SellerProfilePicUrl,
-        int Rating
+        float Rating
     );
 }

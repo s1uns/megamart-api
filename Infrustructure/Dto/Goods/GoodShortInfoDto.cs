@@ -15,7 +15,7 @@ namespace Infrustructure.Dto.Goods
         decimal Price, 
         string ImgUrl, 
         string SellerName,
-        int Rating,
+        float Rating,
         List<Guid> Categories
     );
 }
