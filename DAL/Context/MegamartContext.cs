@@ -17,6 +17,7 @@ namespace megamart_api.Context
         public required DbSet<Order> Orders { get; set; }
         public required DbSet<OrderPosition> OrderPositions { get; set; }
         public required DbSet<Seller> Sellers { get; set; }
+        public required DbSet<Rating> Ratings { get; set; }
 
         public MegamartContext(DbContextOptions<MegamartContext> options) : base(options) { }
 
@@ -28,6 +29,7 @@ namespace megamart_api.Context
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new OrderPositionConfiguration());
             builder.ApplyConfiguration(new SellerConfiguration());
+            builder.ApplyConfiguration(new RatingConfiguration());
 
             base.OnModelCreating(builder);
 
