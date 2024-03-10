@@ -10,6 +10,8 @@ using BLL.Services.IdentityManagement.Interfaces;
 using BLL.Services.IdentityManagement;
 using BLL.Services.ProfileManagement.Interface;
 using BLL.Services.ProfileManagement;
+using BLL.Services.RatingManagement.Interface;
+using BLL.Services.RatingManagement;
 
 namespace megamart_api.BuildExtensions
 {
@@ -23,6 +25,7 @@ namespace megamart_api.BuildExtensions
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IGoodService, GoodService>();
+            services.AddScoped<IRatingService, RatingService>();
         }
     }
 }
